@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import  { useContext } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 import { FaArrowRightToBracket } from "react-icons/fa6";
-
+import logo from"../../assets/logo.webp"
 function Navbar() {
   const {user, signOutUser} = useContext(AuthContext)
     const li = <>
-        <li>
-              <a>Item 1</a>
+         <li>
+              <NavLink to='/'>Home</NavLink>
             </li>
             <li>
               <a>Parent</a>
@@ -30,7 +30,7 @@ function Navbar() {
         });
     };
   return (
-    <div className="navbar bg-base-100 shadow-sm w-11/12 mx-auto my-5">
+    <div className="navbar bg-base-100 shadow-sm w-11/12 mx-auto sticky mt-6 z-20">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,7 +56,7 @@ function Navbar() {
             {li}
           </ul>
         </div>
-        <a className="text-2xl text-red-400 font-bold">Paws & Tails</a>
+        <h1 className="text-2xl text-emerald-500 font-bold flex">Paws & Tails<sup><img src={logo}/></sup></h1>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
