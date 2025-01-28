@@ -16,7 +16,7 @@ function PetsCard({ pet }) {
         className="w-full object-cover"
       />
       <CardContent className="flex flex-col items-start p-4">
-        <Typography gutterBottom variant="h5" component="div" className="font-bold text-lg">
+        <Typography gutterBottom variant="h5" component="div" className="!font-bold text-lg !font-display !text-teal-600">
           {name}
         </Typography>
         <Typography variant="body2" color="text.secondary" className="text-gray-600 mb-2">
@@ -28,7 +28,7 @@ function PetsCard({ pet }) {
         </Typography>
         <div className="mt-4">
           <Link to={`/petListing/${_id}`}>
-            <Button variant="contained" className="!bg-blue-500 hover:!bg-blue-700">
+            <Button variant="contained" className="!bg-teal-500 hover:!bg-teal-700">
               View Details
             </Button>
           </Link>

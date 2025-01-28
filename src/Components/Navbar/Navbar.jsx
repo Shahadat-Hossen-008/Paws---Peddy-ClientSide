@@ -99,7 +99,7 @@ function Navbar() {
         ):
         
         (
-          <Button variant="contained">
+          <Button variant="contained" className="!bg-teal-500">
               <Link to="/login">Login</Link>
             </Button>
         )}
