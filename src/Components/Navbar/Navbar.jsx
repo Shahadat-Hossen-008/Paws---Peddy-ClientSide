@@ -11,10 +11,10 @@ function Navbar() {
               <NavLink to='/'>Home</NavLink>
             </li>
             <li>
-              <a>Parent</a>
+              <NavLink to='petListing'>Pet Listing</NavLink>
             </li>
             <li>
-              <a>Item 3</a>
+              <NavLink>Donation Campaigns</NavLink>
             </li>
     </>
     const handleSignOut = () => {

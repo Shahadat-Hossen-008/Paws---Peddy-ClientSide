@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash, FaRegCheckCircle, FaRegCircle } from "react-icons/fa
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 
 function Register() {
   const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
@@ -167,6 +168,7 @@ console.log({email, password, username, photoURL});
             </Link>
           </p>
         </form>
+        <GoogleButton></GoogleButton>
       </div>
     </div>
   );

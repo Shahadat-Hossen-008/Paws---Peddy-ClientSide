@@ -13,6 +13,7 @@ import React, { useContext, useState } from "react";
 import {  MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 
 
 
@@ -85,6 +86,7 @@ function Login() {
                 name="password"
                 label="Password"
                 type={showPassword ?  "password":"text" }
+                required
                 id="password"
                 InputProps={{
                   endAdornment: (
@@ -116,7 +118,7 @@ function Login() {
             </p>
           </Box>
         </Box>
-        {/* <GoogleButton></GoogleButton> */}
+       <GoogleButton></GoogleButton>
       </Container>
     </div>
   );
