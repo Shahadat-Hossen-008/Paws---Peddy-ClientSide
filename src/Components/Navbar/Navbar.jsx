@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../Context/AuthProvider";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 function Navbar() {
+  const {user, signOutUser} = useContext(AuthContext)
     const li = <>
         <li>
               <a>Item 1</a>
@@ -12,6 +17,18 @@ function Navbar() {
               <a>Item 3</a>
             </li>
     </>
+    const handleSignOut = () => {
+      signOutUser()
+        .then(() => {
+          console.log("Sign out successfully");
+          
+          // toast.success("Sign Out Successful");
+        })
+        .catch((err) => {
+          console.log("Error Occur")
+          // toast.error("Error occur");
+        });
+    };
   return (
     <div className="navbar bg-base-100 shadow-sm w-11/12 mx-auto my-5">
       <div className="navbar-start">
@@ -47,7 +64,45 @@ function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+      {user  ? (
+            <div className='dropdown dropdown-end z-50 text-lg'>
+            <div
+              tabIndex={0}
+              role='button'
+              className='btn btn-ghost btn-circle avatar'
+            >
+              <div title={user?.displayName} className='w-10 rounded-full'>
+                <img
+                  referrerPolicy='no-referrer'
+                  alt='User Profile Photo'
+                  src={user?.photoURL}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
+            >
+              <li>
+                <Link to='/myServices' className='justify-between'>
+                  My Services
+                </Link>
+              </li>
+              <li>
+                <Link to='/myReviews'>My Reviews</Link>
+              </li>
+              <li className='!mt-2'>
+              <button onClick={handleSignOut} className="btn btn-outline text-blue-500"><FaArrowRightToBracket/>Log Out</button>
+              </li>
+            </ul>
+          </div>
+        ):
+        
+        (
+          <Button variant="contained">
+              <Link to="/login">Login</Link>
+            </Button>
+        )}
       </div>
     </div>
   );
