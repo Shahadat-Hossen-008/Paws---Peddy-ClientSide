@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
+import AdoptPetsForm from "../AdoptPetForm/AdoptPetsForm";
 const style = {
   position: "absolute",
   top: "50%",
@@ -25,8 +26,7 @@ const style = {
   maxHeight: "90vh",
 };
 function PetDetails() {
-  const { image, name, age, location, shortDescription, longDescription } =
-    useLoaderData();
+  const pet = useLoaderData();
   const [open, setOpen] = useState(false);
   const [selectedPets,setSelectedPets] = useState(null);
   const handleOpen = (review) => {
@@ -46,8 +46,8 @@ function PetDetails() {
             <CardMedia
               component="img"
               height="100%"
-              image={image}
-              alt={name}
+              image={pet.image}
+              alt={pet.name}
               className="w-full object-cover h-full"
             />
           </Grid>
@@ -60,14 +60,14 @@ function PetDetails() {
                 component="div"
                 className="!font-bold !text-3xl !mb-2 !font-display"
               >
-                {name}
+                {pet.name}
               </Typography>
               <Typography
                 variant="body1"
                 color="text.secondary"
                 className="!text-lg !text-gray-700 !mb-2 !font-display"
               >
-                Age: {age} years
+                Age: {pet.age} years
               </Typography>
               <Typography
                 variant="body1"
@@ -75,14 +75,14 @@ function PetDetails() {
                 className="!flex !items-center !text-gray-700 !mb-2"
               >
                 <FaMapMarkerAlt className="!mr-2" />
-                Location: {location}
+                Location: {pet.location}
               </Typography>
               {/* Short Description */}
               <Typography
                 variant="body1"
                 className="!text-gray-600 mt-4 !font-semibold !font-display"
               >
-                {shortDescription}
+                {pet.shortDescription}
               </Typography>
 
               {/* Long Description */}
@@ -90,17 +90,17 @@ function PetDetails() {
                 variant="body2"
                 className="!text-gray-600 !mt-4 !leading-relaxed !font-display"
               >
-                {longDescription}
+                {pet.longDescription}
               </Typography>
 
               {/* Adopt Button */}
               <Button
                 variant="contained"
                 className="!bg-green-500 hover:!bg-green-600 !mt-6 !font-display"
-                onClick={() => handleOpen(review)}
+                onClick={() => handleOpen(pet)}
                 aria-label="edit"
               >
-                Adopt {name}
+                Adopt {pet.name}
               </Button>
             </CardContent>
           </Grid>
@@ -114,7 +114,7 @@ function PetDetails() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         <p>hi</p>
+         {selectedPets && <AdoptPetsForm key={pet._id} pet={pet} handleClose={handleClose}></AdoptPetsForm>}
         </Box>
       </Modal>
     </div>

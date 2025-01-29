@@ -83,13 +83,9 @@ function Navbar() {
               tabIndex={0}
               className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52'
             >
+              
               <li>
-                <Link to='/myServices' className='justify-between'>
-                  My Services
-                </Link>
-              </li>
-              <li>
-                <Link to='/myReviews'>My Reviews</Link>
+                <Link to='/dashboard'>Dashboard</Link>
               </li>
               <li className='!mt-2'>
               <button onClick={handleSignOut} className="btn btn-outline text-blue-500"><FaArrowRightToBracket/>Log Out</button>
