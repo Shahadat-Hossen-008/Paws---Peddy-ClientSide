@@ -17,15 +17,11 @@ import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 
 
 
-
-
-
-
 function Login() {
   const {setUser, signIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-//   const from = location?.state || "/";
+  const from = location?.state || "/";
   const [showPassword, setShowPassword] = useState(true);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
@@ -39,7 +35,7 @@ function Login() {
     .then(result =>{
         const user = result.user;
         setUser(user);
-        // navigate(from ,{replace: true})
+        navigate(from ,{replace: true})
         
         
     })

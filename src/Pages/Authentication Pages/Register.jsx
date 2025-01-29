@@ -25,7 +25,7 @@ function Register() {
   
   const onSubmit = (data) => {
     const { email, password, username, photoURL } = data;
-console.log({email, password, username, photoURL});
+
 
     createUser(email, password)
       .then((userCredential) => {
@@ -33,7 +33,7 @@ console.log({email, password, username, photoURL});
         updateUserProfile(username, photoURL)
           .then(() => {
             setUser(user);
-            // navigate('/');
+            navigate('/');
           })
           .catch((err) => console.log(err.message));
       })

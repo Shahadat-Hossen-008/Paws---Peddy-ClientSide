@@ -9,11 +9,10 @@ function PetListing() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
   const [pets] = UseFetch(searchQuery, category);
-  console.log(pets);
 
   return (
     <div className="w-11/12 mx-auto">
-      <div className="flex justify-evenly items-center">
+      <div className="md:flex justify-evenly items-center">
         <FormControl sx={{ m: 3, minWidth: 300 }}>
           <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>
           <Select
@@ -36,7 +35,6 @@ function PetListing() {
          <FaSearch className="absolute right-3 top-5"/>
         </div>
       </div>
-      PetListing:{pets.length}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap5">
         {pets.map((pet) => (
           <PetsCard key={pet._id} pet={pet}></PetsCard>

@@ -6,6 +6,7 @@ import Register from "../Pages/Authentication Pages/Register";
 import Home from "../Pages/Homepage/Home";
 import PetListing from "../Pages/PetListing/PetListing";
 import PetDetails from "../Pages/PetDetails/PetDetails";
+import ProtectedRouter from "./ProtectedRouter";
 
 const router = createBrowserRouter([
     {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
         },
         {
             path:'petListing/:id',
-            element:<PetDetails></PetDetails>,
+            element:<ProtectedRouter><PetDetails></PetDetails></ProtectedRouter>,
             loader:({params})=>fetch(`http://localhost:5000/all-pets/${params.id}`)
         }
       ]

@@ -17,7 +17,7 @@ function GoogleButton() {
     googleSignIn()
       .then((result) => {
         setUser(result.user);
-        // navigate(from);
+        navigate(from);
       })
       .catch((error) => {
         console.log(error.message);

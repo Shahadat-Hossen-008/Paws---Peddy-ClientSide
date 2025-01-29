@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -6,14 +6,37 @@ import {
   CardMedia,
   Typography,
   Grid,
+  Modal,
+  Box,
 } from "@mui/material";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  overflowY: "auto",
+  maxHeight: "90vh",
+};
 function PetDetails() {
   const { image, name, age, location, shortDescription, longDescription } =
     useLoaderData();
-
+  const [open, setOpen] = useState(false);
+  const [selectedPets,setSelectedPets] = useState(null);
+  const handleOpen = (review) => {
+   setSelectedPets(review);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setSelectedPets(null);
+    setOpen(false);
+  };
   return (
     <div className="min-h-screen bg-base-100 p-6 flex justify-center items-center ">
       <Card className="shadow-lg rounded-2xl w-full max-w-4xl overflow-hidden bg-white">
@@ -74,9 +97,8 @@ function PetDetails() {
               <Button
                 variant="contained"
                 className="!bg-green-500 hover:!bg-green-600 !mt-6 !font-display"
-                onClick={() =>
-                  document.getElementById("my_modal_5").showModal()
-                }
+                onClick={() => handleOpen(review)}
+                aria-label="edit"
               >
                 Adopt {name}
               </Button>
@@ -84,20 +106,17 @@ function PetDetails() {
           </Grid>
         </Grid>
       </Card>
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
+      {/* // Modal use state for save service  */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+         <p>hi</p>
+        </Box>
+      </Modal>
     </div>
   );
 }
