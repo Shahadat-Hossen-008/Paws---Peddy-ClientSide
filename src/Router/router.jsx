@@ -8,6 +8,8 @@ import PetListing from "../Pages/PetListing/PetListing";
 import PetDetails from "../Pages/PetDetails/PetDetails";
 import ProtectedRouter from "./ProtectedRouter";
 import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
+import DonationDetails from "../Pages/DonationDetails/DonationDetails";
+import Dashboard from "../Layout/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -36,11 +38,20 @@ const router = createBrowserRouter([
             element:<DonationCampaign></DonationCampaign>
         },
         {
+            path: 'donationCampaign/:id',
+            element:<ProtectedRouter><DonationDetails></DonationDetails></ProtectedRouter>,
+            loader: ({params})=>fetch(`http://localhost:5000/donation-campaign/${params.id}`)
+        },
+        {
             path:'petListing/:id',
             element:<ProtectedRouter><PetDetails></PetDetails></ProtectedRouter>,
             loader:({params})=>fetch(`http://localhost:5000/all-pets/${params.id}`)
         }
       ]
     },
+    {
+        path:'dashboard',
+        element:<Dashboard></Dashboard>
+    }
   ]);
   export default router;

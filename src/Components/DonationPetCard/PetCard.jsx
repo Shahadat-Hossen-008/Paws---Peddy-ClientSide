@@ -33,8 +33,8 @@ const PetCard = ({ pet }) => {
           variant="contained"
           color="primary"
           component={Link}
-          to={`/pets/${petName}`}
-          className="w-full !bg-blue-500 !hover:bg-blue-600"
+          to={`/donationCampaign/${_id}`}
+          className="w-full !bg-teal-500 !hover:bg-blue-600"
         >
           View Details
         </Button>
