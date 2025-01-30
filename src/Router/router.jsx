@@ -7,6 +7,7 @@ import Home from "../Pages/Homepage/Home";
 import PetListing from "../Pages/PetListing/PetListing";
 import PetDetails from "../Pages/PetDetails/PetDetails";
 import ProtectedRouter from "./ProtectedRouter";
+import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         {
             path:'petListing',
             element:<PetListing></PetListing>
+        },
+        {
+            path:'donationCampaign',
+            element:<DonationCampaign></DonationCampaign>
         },
         {
             path:'petListing/:id',

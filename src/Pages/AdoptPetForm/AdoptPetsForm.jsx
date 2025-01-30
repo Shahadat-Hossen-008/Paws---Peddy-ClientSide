@@ -82,7 +82,7 @@ function AdoptPetsForm({ pet, handleClose }) {
           fullWidth
           className="!my-5 !bg-teal-500"
         >
-          Adopt Pet
+          Adopt
         </Button>
       </form>
     </div>
