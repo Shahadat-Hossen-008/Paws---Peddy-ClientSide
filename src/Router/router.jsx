@@ -10,6 +10,7 @@ import ProtectedRouter from "./ProtectedRouter";
 import DonationCampaign from "../Pages/DonationCampaign/DonationCampaign";
 import DonationDetails from "../Pages/DonationDetails/DonationDetails";
 import Dashboard from "../Layout/Dashboard";
+import MyAddedPets from "../Pages/Dashboard/MyAddedPets/MyAddedPets";
 
 const router = createBrowserRouter([
     {
@@ -51,7 +52,13 @@ const router = createBrowserRouter([
     },
     {
         path:'dashboard',
-        element:<Dashboard></Dashboard>
+        element:<Dashboard></Dashboard>,
+        children:[
+            {
+                path:'myAddedPets',
+                element:<MyAddedPets></MyAddedPets>
+            }
+        ]
     }
   ]);
   export default router;
