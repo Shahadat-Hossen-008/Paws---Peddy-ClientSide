@@ -2,9 +2,7 @@ import useAuth from "../../Hooks/useAuth";
 import { Button, TextField } from "@mui/material";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-
 function AdoptPetsForm({ pet, handleClose }) {
-  
   
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure()

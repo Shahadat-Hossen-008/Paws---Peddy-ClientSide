@@ -10,7 +10,7 @@ function Dashboard() {
       <div className="w-64 min-h-screen bg-teal-500 p-4">
         <ul className="menu  my-5 text-[16px] font-display font-medium">
           <li>
-            <NavLink to="/addPet">Add a pet</NavLink>
+            <NavLink to="/dashboard/addPet">Add a pet</NavLink>
           </li>
           <li>
             <NavLink to="myAddedPets">My Added Pets</NavLink>
@@ -42,15 +42,7 @@ function Dashboard() {
       {/* todo: add search functionality require field */}
       {/* navbar content */}
       <div className="flex-1">
-        <div className="w-full h-16 bg-gray-100 flex items-center justify-between px-4 shadow-sm">
-          <div className="flex items-center space-x-4">
-            <Search className="text-gray-600" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-gray-200 rounded-lg p-2 outline-none focus:bg-white focus:ring-2"
-            />
-          </div>
+        <div className="w-full h-16 bg-gray-100 flex items-center justify-end px-4 shadow-sm">
           <div className="flex items-center space-x-4 mr-6">
             <div title={user?.displayName} className='w-10 rounded-full'>
                 <img

@@ -85,7 +85,7 @@ function Navbar() {
             >
               
               <li>
-                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/dashboard/addPet'>Dashboard</Link>
               </li>
               <li className='!mt-2'>
               <button onClick={handleSignOut} className="btn btn-outline text-blue-500"><FaArrowRightToBracket/>Log Out</button>

@@ -1,10 +1,12 @@
 import PetTable from "../../../Components/PetTable/PetTable";
 import useAuth from "../../../Hooks/useAuth";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import UseFetch from "../../../Hooks/UseFetch";
 
 function MyAddedPets () {
     const {user} = useAuth();
     const[pets] = UseFetch()
+    const axiosSecure = useAxiosSecure();
     const myPets = pets.filter(pet => pet.user_Email === user?.email)
     console.log(myPets);
     
@@ -14,9 +16,7 @@ function MyAddedPets () {
       };
     
       const handleDelete = (pet) => {
-        console.log('Delete Pet:', pet);
-        // Delete logic here
-        
+        axiosSecure.delete(`/all-pets/${pet._id}`)
       };
     
       const handleAdopt = (pet) => {
