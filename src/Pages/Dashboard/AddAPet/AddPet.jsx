@@ -16,6 +16,7 @@ function AddPet() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -33,7 +34,7 @@ function AddPet() {
         user_Email: user?.email           
       };
       
-      
+      reset();
       console.log(addPetInfo);
   };
   return (

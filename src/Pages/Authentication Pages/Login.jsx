@@ -14,11 +14,14 @@ import {  MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 
 
 function Login() {
   const {setUser, signIn } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic()
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state || "/";
@@ -35,14 +38,22 @@ function Login() {
     .then(result =>{
         const user = result.user;
         setUser(user);
+        const userInfo = {
+          email :user?.email,
+          name: user?.displayName,
+          photoURL: user?.photoURL
+        }
+        axiosPublic.post('/users', userInfo)
+        .then(res=>{
+          console.log(res.data)
+        })
+        toast.success("Login successfully")
         navigate(from ,{replace: true})
         
         
     })
     .catch(error=>{
-        // toast.error(error.message);
-        console.log(error.message);
-        
+        toast.error(error.message);
     })
     
     

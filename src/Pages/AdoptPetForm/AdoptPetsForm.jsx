@@ -23,16 +23,32 @@ function AdoptPetsForm({ pet, handleClose }) {
     if(user?.email === user_Email)
       return toast.error("Action not permitted!")
     
-    try{
-       axiosSecure.post('/adopt-pet', adoptPetInformation)
-       toast.success("Adoption request send")
-     
-       handleClose();
-
-    } catch(err){
-      toast.error(err.message)
+    try {
+      const { data } = await axiosSecure.post('/adopt-pet', adoptPetInformation);
+      toast.success("Adoption request sent successfully");
+      console.log(data);
+    } catch (err) {
+      // Check if there's a response from the server
+      if (err.response) {
+        const errorMessage = err.response.data; 
+        
+        // Show the server error message to the client using toast
+        toast.error(errorMessage || "An error occurred. Please try again.");
+        
+        // Log additional info for debugging (optional)
+        console.error("Server responded with error:", err.response);
+      } else if (err.request) {
+        // Request was made but no response was received
+        toast.error("Network error. Please check your connection.");
+        console.error("No response received:", err.request);
+      } else {
+        // Something else happened in setting up the request
+        toast.error("An unexpected error occurred.");
+        console.error("Error:", err.message);
+      }
     }
-
+    
+    handleClose();
   };
 
   return (

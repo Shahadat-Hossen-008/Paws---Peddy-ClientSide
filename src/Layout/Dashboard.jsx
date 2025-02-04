@@ -5,21 +5,35 @@ import useAuth from "../Hooks/useAuth";
 
 function Dashboard() {
     const {user} = useAuth();
+    //todo: get admin value from database
+    const isAdmin = true
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-teal-500 p-4">
+       {isAdmin?  
+       <ul className="menu  my-5 text-[16px] font-display font-medium">
+          <li>
+            <NavLink to="/dashboard/allUsers">All Users</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/allPets">All Pets</NavLink>
+          </li>
+          <li>
+            <NavLink to="dashboard/allDonation">All Donation</NavLink>
+          </li>
+        </ul>: 
         <ul className="menu  my-5 text-[16px] font-display font-medium">
           <li>
             <NavLink to="/dashboard/addPet">Add a pet</NavLink>
           </li>
           <li>
-            <NavLink to="myAddedPets">My Added Pets</NavLink>
+            <NavLink to="/dashboard/myAddedPets">My Added Pets</NavLink>
           </li>
           <li>
             <NavLink to="dashboard/adoptionRequest">Adoption Request</NavLink>
           </li>
           <li>
-            <NavLink to="dashboard/createDonationCampaign">
+            <NavLink to="/dashboard/createDonationCampaign">
               Create Donation Campaign
             </NavLink>
           </li>
@@ -31,7 +45,7 @@ function Dashboard() {
           <li>
             <NavLink to="dashboard/myDonation">My Donations</NavLink>
           </li>
-        </ul>
+        </ul>}
         <div className="divider"></div>
            <ul className="menu  my-5 text-[16px] font-display font-medium">
               <li>

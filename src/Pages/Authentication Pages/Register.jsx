@@ -5,15 +5,19 @@ import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 function Register() {
   const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic()
   const [seePassword, setSeePassword] = useState(true);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const passwordValue = watch("password", "");
@@ -25,19 +29,28 @@ function Register() {
   
   const onSubmit = (data) => {
     const { email, password, username, photoURL } = data;
-
-
     createUser(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         updateUserProfile(username, photoURL)
           .then(() => {
+            toast.success("User created successfully")
             setUser(user);
+            const userInfo = {
+              email  ,
+              name : username,
+              photoURL
+            }
+            axiosPublic.post('/users', userInfo)
+            .then(res=>{
+              console.log(res.data)
+            })
+            reset();
             navigate('/');
           })
-          .catch((err) => console.log(err.message));
+          .catch((err) => toast.error(err.message));
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => toast.error(error.message));
   };
 
   return (
