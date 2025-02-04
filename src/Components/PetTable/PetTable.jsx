@@ -3,7 +3,7 @@ import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPagin
 import { Button } from '@mui/material';
 
 
-const PetTable = ({ pets, handleUpdate, handleDelete, handleAdopt }) => {
+const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
   const columns = useMemo(
     () => [
       {
@@ -49,7 +49,7 @@ const PetTable = ({ pets, handleUpdate, handleDelete, handleAdopt }) => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => handleDelete(row.original)}
+              onClick={() =>deleteConfirmation(row.original)}
             >
               Delete
             </Button>
@@ -65,7 +65,7 @@ const PetTable = ({ pets, handleUpdate, handleDelete, handleAdopt }) => {
         enableSorting: false,
       },
     ],
-    [handleUpdate, handleDelete, handleAdopt]
+    [handleUpdate, deleteConfirmation, handleAdopt]
   );
 
   const [sorting, setSorting] = useState([]);

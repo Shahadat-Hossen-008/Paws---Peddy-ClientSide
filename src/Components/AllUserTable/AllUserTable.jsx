@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import { Button } from '@mui/material';
+
 function AllUserTable({ users, handleUpdate, handleBan }) {
   const columns = useMemo(
     () => [
@@ -27,6 +28,7 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
           <img
             src={info.getValue()}
             alt="user"
+            referrerPolicy="no-referrer"
             className="h-12 w-12 rounded-full"
           />
         ),
@@ -35,30 +37,35 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
       {
         accessorKey: "role",
         header: "Role",
-        cell: (info) => (info.getValue() ? "Adopted" : "Available"),
+        cell: (info) => (info.getValue()),
         enableSorting: true,
       },
       {
         accessorKey: "actions",
         header: "Actions",
-        cell: ({ row }) => (
-          <div className="flex !space-x-2">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleUpdate(row.original)}
-            >
-              Make Admin
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => handleBan(row.original)}
-            >
-              Ban
-            </Button>
-          </div>
-        ),
+        cell: ({ row }) => {
+          const role = row.original.role;  
+
+          return (
+            <div className="flex !space-x-2">
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={role === "Admin"} 
+                onClick={() => handleUpdate(row.original)}
+              >
+                Make Admin
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleBan(row.original)}
+              >
+                Ban
+              </Button>
+            </div>
+          );
+        },
         enableSorting: false,
       },
     ],
