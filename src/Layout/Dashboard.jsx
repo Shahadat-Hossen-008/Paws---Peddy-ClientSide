@@ -2,15 +2,18 @@ import { Search } from "@mui/icons-material";
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAdmin from "../Hooks/useAdmin";
 
 function Dashboard() {
     const {user} = useAuth();
     //todo: get admin value from database
-    const isAdmin = true
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin);
+    
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-teal-500 p-4">
-       {isAdmin?  
+       {isAdmin ?  
        <ul className="menu  my-5 text-[16px] font-display font-medium">
           <li>
             <NavLink to="/dashboard/allUsers">All Users</NavLink>

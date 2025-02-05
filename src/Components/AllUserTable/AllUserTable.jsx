@@ -37,7 +37,7 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
       {
         accessorKey: "role",
         header: "Role",
-        cell: (info) => (info.getValue()),
+        cell: (info) => (info.getValue()? "Admin": "User"),
         enableSorting: true,
       },
       {
@@ -92,7 +92,7 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
     //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
     
   });
-  return  (<div className="w-11/12 mx-auto">
+  return  (<div className="w-11/12 mx-auto !font-display">
   <table className="min-w-full bg-white shadow-md rounded-lg">
   <thead>
     {table.getHeaderGroups().map(headerGroup => (
