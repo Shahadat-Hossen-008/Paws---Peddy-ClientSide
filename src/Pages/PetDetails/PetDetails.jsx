@@ -27,6 +27,8 @@ const style = {
 };
 function PetDetails() {
   const pet = useLoaderData();
+  console.log(pet);
+  
   const [open, setOpen] = useState(false);
   const [selectedPets,setSelectedPets] = useState(null);
   const handleOpen = (review) => {

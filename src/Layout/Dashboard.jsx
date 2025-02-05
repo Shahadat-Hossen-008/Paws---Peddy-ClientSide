@@ -8,7 +8,6 @@ function Dashboard() {
     const {user} = useAuth();
     //todo: get admin value from database
     const [isAdmin] = useAdmin()
-    console.log(isAdmin);
     
   return (
     <div className="flex">

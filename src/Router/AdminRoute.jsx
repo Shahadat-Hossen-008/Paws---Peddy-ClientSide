@@ -14,7 +14,7 @@ function AdminRoute ({children}) {
      if(user && isAdmin){
       return children
      }
-    return <Navigate to='/login' state={location.pathname} ></Navigate>
+    return <Navigate to='/login' state={location.pathname} replace></Navigate>
   }
   
 

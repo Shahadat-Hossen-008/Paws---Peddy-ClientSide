@@ -55,7 +55,7 @@ const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
             </Button>
             <Button
               variant="contained"
-              color={row.original.adopted ? 'success' : 'warning'}
+              color={row.original.adopted ? 'Adopted' : 'Not Adopt'}
               onClick={() => handleAdopt(row.original)}
             >
               {row.original.adopted ? 'Undo Adopt' : 'Adopt'}

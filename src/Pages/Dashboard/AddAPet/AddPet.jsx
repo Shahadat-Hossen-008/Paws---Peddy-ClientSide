@@ -3,12 +3,19 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 import useAuth from "../../../Hooks/useAuth";
+import { format } from "date-fns";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 const options = [
   { value: "dog", label: "Dog" },
   { value: "cat", label: "Cat" },
   { value: "rabbit", label: "Rabbit" },
+  { value: "bird", label: "Bird" },
 ];
+const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 function AddPet() {
+  const axiosPublic= useAxiosPublic();
   const {user} = useAuth()
   const [isClearable, setIsClearable] = useState(true);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -20,8 +27,16 @@ function AddPet() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-      // const image = data
+  const onSubmit = async(data) => {
+    //image upload to imagebb and then get url
+    const imageFile ={image: data.file[0]}
+    const res = await axiosPublic.post(image_hosting_api, imageFile,{
+      headers:{
+        'content-type':'multipart/form-data'
+      }
+    })
+    if(res.data.success){
+
       const addPetInfo = {
         name: data.name,
         age: data.age,
@@ -30,12 +45,20 @@ function AddPet() {
         shortDescription: data.shortNote,
         longDescription: data.longDescription,
         adopted: false,                    
-        dateAdded: new Date(),              
-        user_Email: user?.email           
+        dateAdded: format(new Date(), 'P'),              
+        user_Email: user?.email ,
+        image: res.data.data.display_url         
       };
-      
-      reset();
+      const petsRes = await axiosPublic.post('/all-pets', addPetInfo);
+      console.log(petsRes.data);
+      if(petsRes.data.acknowledged){
+        toast.success(`${addPetInfo.name} added successfully`)
+        reset();
+      }
       console.log(addPetInfo);
+      
+    }
+      
   };
   return (
     <div>

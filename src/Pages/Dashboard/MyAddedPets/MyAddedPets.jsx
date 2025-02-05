@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { Button } from '@mui/material';
 function MyAddedPets () {
     const {user} = useAuth();
-    const[pets] = UseFetch()
+    const[pets, setPets] = UseFetch()
     const axiosSecure = useAxiosSecure();
     const myPets = pets.filter(pet => pet.user_Email === user?.email)
     console.log(myPets);
@@ -16,10 +16,22 @@ function MyAddedPets () {
         // Update logic here
       };
     
-      const handleDelete = (id) => {
-        axiosSecure.delete(`/all-pets/${id}`)
+      const handleDelete =  async(id) => {
+       const res = await axiosSecure.delete(`/all-pets/${id}`)
+       try {
+        const response = await axiosSecure.delete(`/all-pets/${id}`);
+        if (response.status === 200 || response.status === 204) {
+          toast.success('Pet deleted successfully!');
+          setPets(pets.filter(pet => pet._id !== id));
+        } else {
+          toast.error('Failed to delete pet!');
+        }
+      } catch (error) {
+        toast.error('Error deleting the pet.');
+        console.error('Delete Error:', error);
+      }
       };
-      const deleteConfirmation = (id) => {
+      const deleteConfirmation = (pet) => {
         toast((t) => (
           <div>
             <p className="font-poppins font-semibold my-2">Are you sure</p>
@@ -29,7 +41,8 @@ function MyAddedPets () {
                 variant="contained"
                 onClick={() => {
                   toast.dismiss(t.id);
-                  handleDelete(id);
+                  console.log(pet._id)
+                  handleDelete(pet._id);
                 }}
               >
                 Delete
