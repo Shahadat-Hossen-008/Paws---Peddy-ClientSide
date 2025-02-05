@@ -24,7 +24,7 @@ function useAxiosSecure() {
   //intercept 401 and 403 error
   // Add a response interceptor
   axiosSecure.interceptors.response.use(
-    function (response) {
+    (response)=> {
       return response;
     },
     async(error) => {
