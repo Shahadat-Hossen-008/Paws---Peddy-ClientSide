@@ -1,19 +1,16 @@
 import PetTable from "../../../Components/PetTable/PetTable";
-import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import UseFetch from "../../../Hooks/UseFetch";
 import toast from "react-hot-toast";
 import { Button } from '@mui/material';
+import { Link, useNavigate } from "react-router-dom";
 function MyAddedPets () {
-    const {user} = useAuth();
-    const[pets, setPets] = UseFetch()
+    const[pets, usersPets, refetch] = UseFetch()
+    const navigate = useNavigate()
     const axiosSecure = useAxiosSecure();
-    const myPets = pets.filter(pet => pet.user_Email === user?.email)
-    console.log(myPets);
-    
     const handleUpdate = (pet) => {
         console.log('Update Pet:', pet);
-        // Update logic here
+        navigate(`/dashboard/updatePetInfo/${pet._id}`)
       };
     
       const handleDelete =  async(id) => {
@@ -22,13 +19,12 @@ function MyAddedPets () {
         const response = await axiosSecure.delete(`/all-pets/${id}`);
         if (response.status === 200 || response.status === 204) {
           toast.success('Pet deleted successfully!');
-          setPets(pets.filter(pet => pet._id !== id));
+          refetch();
         } else {
           toast.error('Failed to delete pet!');
         }
       } catch (error) {
         toast.error('Error deleting the pet.');
-        console.error('Delete Error:', error);
       }
       };
       const deleteConfirmation = (pet) => {
@@ -40,9 +36,8 @@ function MyAddedPets () {
                 className="!bg-red-500"
                 variant="contained"
                 onClick={() => {
-                  toast.dismiss(t.id);
-                  console.log(pet._id)
                   handleDelete(pet._id);
+                  toast.dismiss(t.id);
                 }}
               >
                 Delete
@@ -58,14 +53,17 @@ function MyAddedPets () {
           </div>
         ));
       };
-      const handleAdopt = (pet) => {
-        console.log('Toggle Adopt:', pet);
+      const handleAdopt = async(pet) => {
+        const res = await axiosSecure.patch(`/all-pets/${pet._id}`)
+        refetch()
+        console.log('Toggle Adopt:', res.data);
+        
         // Adopt logic here
       };
   return (
     <div className="w-11/12 mx-auto mt-10">
     <h1 className="font-display font-bold text-3xl my-4">My Added Pets</h1>
-    <PetTable pets={myPets} handleUpdate={handleUpdate} deleteConfirmation={deleteConfirmation} handleAdopt={handleAdopt} />
+    <PetTable pets={usersPets} handleUpdate={handleUpdate} deleteConfirmation={deleteConfirmation} handleAdopt={handleAdopt} />
     </div>
   )
 }

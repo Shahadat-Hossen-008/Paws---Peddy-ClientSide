@@ -1,13 +1,18 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react"
+import useAxiosPublic from "./useAxiosPublic";
+import useAuth from "./useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 
 function UseFetch (searchQuery, category) {
+  const axiosPublic = useAxiosPublic()
     const [pets, setPets]= useState([]);
+    const {user} = useAuth();
     useEffect(()=>{
         const fetchData = async()=>{
           try{
-            const {data} = await axios.get('http://localhost:5000/all-pets', {
+            const {data} = await axiosPublic.get('/all-pets', {
               params:{
                 query:searchQuery,
                 category: category
@@ -21,7 +26,14 @@ function UseFetch (searchQuery, category) {
     }
      fetchData()
 }, [searchQuery, category]) 
-  return [pets, setPets]
+const {data: usersPets=[], refetch} = useQuery({
+  queryKey: ['userPet', user?.email],
+  queryFn: async()=>{
+    const res = await axiosPublic.get(`/all-pets/email/${user?.email}`)
+    return res.data
+  }
+})
+  return [pets, usersPets, refetch]
 }
 
 export default UseFetch

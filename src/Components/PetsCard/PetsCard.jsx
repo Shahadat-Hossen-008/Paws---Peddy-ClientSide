@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 function PetsCard({ pet }) {
-  const { image, name, age, location, _id } = pet  || {};
+  const { image, name, age, location, _id} = pet  || {};
 
   return (
     <Card className="shadow-lg rounded-2xl overflow-hidden m-4 bg-base-100">
@@ -13,7 +13,7 @@ function PetsCard({ pet }) {
         height="200"
         image={image}
         alt={name}
-        className="w-full object-cover"
+        className="w-full !object-cover h-80"
       />
       <CardContent className="flex flex-col items-start p-4">
         <Typography gutterBottom variant="h5" component="div" className="!font-bold text-lg !font-display !text-teal-600">
@@ -22,6 +22,7 @@ function PetsCard({ pet }) {
         <Typography variant="body2" color="text.secondary" className="text-gray-600 mb-2">
           Age: {age}
         </Typography>
+        
         <Typography variant="body2" color="text.secondary" className="flex items-center text-gray-600">
           <FaMapMarkerAlt className="mr-2" />
           {location}

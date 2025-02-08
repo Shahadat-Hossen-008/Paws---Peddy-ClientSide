@@ -55,7 +55,6 @@ function AddPet() {
         toast.success(`${addPetInfo.name} added successfully`)
         reset();
       }
-      console.log(addPetInfo);
       
     }
       

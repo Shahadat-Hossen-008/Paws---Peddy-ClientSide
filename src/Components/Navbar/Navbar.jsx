@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
 import { FaArrowRightToBracket } from "react-icons/fa6";
 import logo from"../../assets/logo.webp"
+import toast from "react-hot-toast";
 function Navbar() {
   const {user, signOutUser} = useContext(AuthContext)
     const li = <>
@@ -20,13 +21,11 @@ function Navbar() {
     const handleSignOut = () => {
       signOutUser()
         .then(() => {
-          console.log("Sign out successfully");
+          toast.success("Sign out successfully");
           
-          // toast.success("Sign Out Successful");
         })
         .catch((err) => {
-          console.log("Error Occur")
-          // toast.error("Error occur");
+          toast.error("Error Occur")
         });
     };
   return (

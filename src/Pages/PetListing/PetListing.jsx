@@ -9,6 +9,8 @@ function PetListing() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
   const [pets] = UseFetch(searchQuery, category);
+  const availablePets = pets?.filter(pet => pet.adopted === false) || [];
+
 
   return (
     <div className="w-11/12 mx-auto">
@@ -36,7 +38,7 @@ function PetListing() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap5">
-        {pets.map((pet) => (
+        {availablePets.map((pet) => (
           <PetsCard key={pet._id} pet={pet}></PetsCard>
         ))}
       </div>

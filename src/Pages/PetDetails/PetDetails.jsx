@@ -12,6 +12,7 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import AdoptPetsForm from "../AdoptPetForm/AdoptPetsForm";
+import React from "react";
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,7 +28,6 @@ const style = {
 };
 function PetDetails() {
   const pet = useLoaderData();
-  console.log(pet);
   
   const [open, setOpen] = useState(false);
   const [selectedPets,setSelectedPets] = useState(null);
@@ -64,6 +64,9 @@ function PetDetails() {
               >
                 {pet.name}
               </Typography>
+              <Typography variant="body2" color="text.secondary" className=" !mb-2 !font-display">
+          Date: {pet.dateAdded}
+        </Typography>  
               <Typography
                 variant="body1"
                 color="text.secondary"
