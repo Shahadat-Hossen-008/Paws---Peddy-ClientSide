@@ -6,7 +6,12 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
+const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 function CreateDonation () {
+  const axiosPublic = useAxiosPublic();
     const [startDate, setStartDate] = useState(new Date());
     const {user} = useAuth()
     const {
@@ -16,23 +21,41 @@ function CreateDonation () {
       formState: { errors },
     } = useForm();
   
-    const onSubmit = (data) => {
-        // const image = data
-        const addPetInfo = {
-          petName: data.name,
-          highestDonationAmount: data.donation,
-          donatedAmount: 0,
-          shortDescription: data.shortNote,
-          longDescription: data.longDescription,
-          adopted: false,                    
-          lastDateOfDonation: format(new Date(startDate), 'P'), 
-          campaignCreatedDateTime: format(new Date(), 'Pp'),
-          user_Email: user?.email,
-          pause: false       
-        };
-        
+    const onSubmit = async(data) => {
+      //image upload to imagebb and then get url
+    const imageFile ={image: data.file[0]}
+    const res = await axiosPublic.post(image_hosting_api, imageFile,{
+      headers:{
+        'content-type':'multipart/form-data'
+      }
+    })
+    if(res.data.success){
+
+      const addPetInfo = {
+        petName: data.name,
+        highestDonationAmount: data.donation,
+        donatedAmount: 0,
+        shortDescription: data.shortNote,
+        longDescription: data.longDescription,
+        adopted: false,                    
+        lastDateOfDonation: format(new Date(startDate), 'P'), 
+        campaignCreatedDateTime: format(new Date(), 'Pp'),
+        userEmail: user?.email,
+        petImage:  res.data.data.display_url ,
+        pause: false       
+      };
+      
+      console.log(addPetInfo);
+      const petsRes = await axiosPublic.post('/donation-campaign', addPetInfo);
+      console.log(petsRes.data);
+      if(petsRes.data.acknowledged){
+        toast.success(`Thank you! ${addPetInfo.petName} is now available for donations. Your generosity will make a difference!`);
+
         reset();
-        console.log(addPetInfo);
+      }
+      
+    }
+       
     };
     return (
       <div>
@@ -77,7 +100,7 @@ function CreateDonation () {
                     message: "Donation must be valid",
                   },
                   min: {
-                    value: 1,
+                    value: 50,
                     message: "Donation must be valid",
                   },
                 })}
@@ -159,7 +182,7 @@ function CreateDonation () {
           {/* Register Button */}
           <div className="my-4">
             <Button variant="contained" type="submit">
-              Add Pet
+              Add Donation
             </Button>
           </div>
         </form>
