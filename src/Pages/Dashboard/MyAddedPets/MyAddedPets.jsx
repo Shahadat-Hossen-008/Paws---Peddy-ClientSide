@@ -3,7 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import UseFetch from "../../../Hooks/UseFetch";
 import toast from "react-hot-toast";
 import { Button } from '@mui/material';
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 function MyAddedPets () {
     const[pets, usersPets, refetch] = UseFetch()
     const navigate = useNavigate()
@@ -62,7 +62,7 @@ function MyAddedPets () {
       };
   return (
     <div className="w-11/12 mx-auto mt-10">
-    <h1 className="font-display font-bold text-3xl my-4">My Added Pets</h1>
+    <h1 className="font-display font-bold text-2xl my-4">My Added Pets</h1>
     <PetTable pets={usersPets} handleUpdate={handleUpdate} deleteConfirmation={deleteConfirmation} handleAdopt={handleAdopt} />
     </div>
   )

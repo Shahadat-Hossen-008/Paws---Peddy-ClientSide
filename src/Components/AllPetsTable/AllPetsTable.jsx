@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 
 function AllPetsTable ({pets, handleUpdate, handleDelete}) {
@@ -43,7 +43,15 @@ function AllPetsTable ({pets, handleUpdate, handleDelete}) {
           {
             accessorKey: "adopted",
             header: "status",
-            cell: (info) => (info.getValue()? "Adopted": "Not Adopt"),
+            cell: (info) => (<Typography
+              variant="body2"
+              style={{
+                color: info.getValue() ?  "red" : "green" ,
+                fontWeight: "bold",
+              }}
+            >
+              {info.getValue() ? "Adopted" : "Available"}
+            </Typography>),
             enableSorting: true,
           },
           {
@@ -56,8 +64,9 @@ function AllPetsTable ({pets, handleUpdate, handleDelete}) {
                 <div className="flex !space-x-2">
                   <Button
                     variant="contained"
-                    color="primary"
-                    disabled={adopted} 
+                    color={adopted ? "success" : "primary"}
+                    disabled={adopted}
+                    className='disabled:cursor-not-allowed' 
                     onClick={() => handleUpdate(row.original)}
                   >
                     Make Change

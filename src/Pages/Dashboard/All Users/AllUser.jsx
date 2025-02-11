@@ -6,7 +6,7 @@ import toast from "react-hot-toast"
 
 function AllUser () {
     const axiosSecure = useAxiosSecure()
-const {data: users=[], refetch} = useQuery({
+    const {data: users=[], refetch} = useQuery({
     queryKey:['users'],
     queryFn: async ()=>{
         const res = await axiosSecure.get('/users')

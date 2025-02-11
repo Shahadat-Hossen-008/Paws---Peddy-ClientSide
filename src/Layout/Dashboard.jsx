@@ -32,7 +32,7 @@ function Dashboard() {
             <NavLink to="/dashboard/myAddedPets">My Added Pets</NavLink>
           </li>
           <li>
-            <NavLink to="dashboard/adoptionRequest">Adoption Request</NavLink>
+            <NavLink to="/dashboard/adoptionRequest">Adoption Request</NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/createDonationCampaign">

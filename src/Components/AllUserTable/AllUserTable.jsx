@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 function AllUserTable({ users, handleUpdate, handleBan }) {
   const columns = useMemo(
@@ -37,7 +37,15 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
       {
         accessorKey: "role",
         header: "Role",
-        cell: (info) => (info.getValue()? "Admin": "User"),
+        cell: (info) => (<Typography
+          variant="body2"
+          style={{
+            color: info.getValue() ?  "green" : "black" ,
+            fontWeight: "bold",
+          }}
+        >
+          {info.getValue() ? "Admin" : "User"}
+        </Typography>),
         enableSorting: true,
       },
       {
@@ -51,7 +59,8 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={role === "Admin"} 
+                disabled={role === "Admin"}
+                className='disabled:cursor-not-allowed' 
                 onClick={() => handleUpdate(row.original)}
               >
                 Make Admin

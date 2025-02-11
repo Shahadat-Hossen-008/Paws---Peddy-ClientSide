@@ -17,6 +17,7 @@ import AllUser from "../Pages/Dashboard/All Users/AllUser";
 import AdminRoute from "./AdminRoute";
 import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 import UpdatePetInfo from "../Components/UpdatePetInfo/UpdatePetInfo";
+import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                 path:'updatePetInfo/:id',
                 element:<UpdatePetInfo/>,
                 loader: ({params})=>fetch(`http://localhost:5000/all-pets/${params.id}`)
+            },
+            {
+                path: 'adoptionRequest',
+                element:<AdoptionRequest/>
             },
            {
             path:'createDonationCampaign',

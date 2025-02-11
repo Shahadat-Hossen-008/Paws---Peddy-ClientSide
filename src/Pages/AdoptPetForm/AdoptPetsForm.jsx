@@ -7,7 +7,7 @@ function AdoptPetsForm({ pet, handleClose }) {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure()
   const handleSubmit = async(e) => {
-    const { _id, image, name, user_Email } = pet;
+    const { _id, image, name, user_Email, adopted } = pet;
     e.preventDefault();
     const phoneNumber = e.target.phone.value;
     const location = e.target.location.value
@@ -18,7 +18,8 @@ function AdoptPetsForm({ pet, handleClose }) {
       petName: name,
       image,
       phoneNumber,
-      location
+      location,
+      petOwnerEmail: user_Email
     };
     if(user?.email === user_Email)
       return toast.error("Action not permitted!")

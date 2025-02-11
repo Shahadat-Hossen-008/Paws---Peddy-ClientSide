@@ -1,6 +1,6 @@
 import  { useMemo, useState } from 'react';
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 
 const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
@@ -31,7 +31,15 @@ const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
       {
         accessorKey: 'adopted',
         header: 'Adopted Status',
-        cell: (info) => (info.getValue() ? 'Adopted' : 'Available'),
+        cell: (info) => (<Typography
+          variant="body2"
+          style={{
+            color: info.getValue() ?  "red" : "green" ,
+            fontWeight: "bold",
+          }}
+        >
+          {info.getValue() ? "Adopted" : "Not Adopted"}
+        </Typography>),
         enableSorting: true,
       },
       {
@@ -56,7 +64,8 @@ const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
             <Button
               variant="contained"
               disabled= {row.original.adopted}
-              color={row.original.adopted ? 'Adopted' : 'Not Adopt'}
+              className='disabled:cursor-not-allowed'
+              color={row.original.adopted ? 'success' : 'primary'}
               onClick={() => handleAdopt(row.original)}
             >
               Adopt
@@ -94,7 +103,7 @@ const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
 
   return (
     <div>
-      <table className="min-w-full bg-white shadow-md rounded-lg">
+      <table className="min-w-full bg-white shadow-md rounded-lg font-display">
       <thead>
         {table.getHeaderGroups().map(headerGroup => (
           <tr key={headerGroup.id} className="bg-gray-200">
