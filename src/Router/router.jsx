@@ -18,6 +18,7 @@ import AdminRoute from "./AdminRoute";
 import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 import UpdatePetInfo from "../Components/UpdatePetInfo/UpdatePetInfo";
 import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
+import MyDonationCampaign from "../Pages/Dashboard/MyDonationCampaign";
 
 const router = createBrowserRouter([
     {
@@ -91,7 +92,12 @@ const router = createBrowserRouter([
            {
             path:'createDonationCampaign',
             element: <CreateDonation></CreateDonation>
-           }           
+           },
+           {
+            path:'myDonationCampaign',
+            element:<MyDonationCampaign/>
+           }
+                
         ]
     }
   ]);

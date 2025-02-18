@@ -1,10 +1,25 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Button, LinearProgress } from '@mui/material';
+
+import { Card, CardContent, CardMedia, Typography, Button, LinearProgress, Modal, Box } from '@mui/material';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-
+import DonationPayment from './DonationPayment';
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  overflowY: "auto",
+  maxHeight: "90vh",
+};
 const DonationDetails = () => {
-
+const [open, setOpen] = useState(false);
   const {
+    _id,
     petName,
     petImage,
     highestDonationAmount,
@@ -16,7 +31,12 @@ const DonationDetails = () => {
   } = useLoaderData();
 
   const donationPercentage = (donatedAmount / highestDonationAmount) * 100;
-
+  const handleOpen = ()=>{
+    setOpen(true);
+  }
+  const handleClose =()=>{
+    setOpen(false);
+  }
   return (
     <div className="max-w-4xl mx-auto p-4">
       <Card className="rounded-lg shadow-lg bg-white">
@@ -59,17 +79,28 @@ const DonationDetails = () => {
             value={donationPercentage}
             className="!h-2 !mb-4 !bg-gray-300 !rounded-lg"
           />
-
           <Button
             variant="contained"
             color="primary"
             fullWidth
+            onClick={() => handleOpen()}
             className="!bg-teal-500 !hover:bg-teal-600"
           >
             Donate Now
           </Button>
         </CardContent>
       </Card>
+       {/* // Modal use state for save service  */}
+       <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <DonationPayment petName={petName} petId = {_id} handleClose={handleClose} />
+        </Box>
+      </Modal>
     </div>
   );
 };

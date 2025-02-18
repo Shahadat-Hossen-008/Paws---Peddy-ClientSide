@@ -18,7 +18,6 @@ function AdoptionRequest () {
     }
 })
 
-console.log(adoptionRequest);
 
 const handleAccept =async(petId, status, petName)=>{
   try {
@@ -40,7 +39,6 @@ const handleReject = async(petId, status, petName)=>{
     const res = await axiosPublic.patch(`/adopt-pet/${petId}`, {
       adopted: status 
     });  
-    console.log('Toggle Adopt:', res.data);
     if (res.data.adoptPetCollectionResult.modifiedCount > 0) {
       refetch();
       toast.error(`${petName}'s adoption status reject successfully!`);

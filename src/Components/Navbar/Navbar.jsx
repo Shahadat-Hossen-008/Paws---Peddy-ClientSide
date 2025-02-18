@@ -9,13 +9,19 @@ function Navbar() {
   const {user, signOutUser} = useContext(AuthContext)
     const li = <>
          <li>
-              <NavLink to='/'>Home</NavLink>
+              <NavLink to='/' className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }>Home</NavLink>
             </li>
             <li>
-              <NavLink to='petListing'>Pet Listing</NavLink>
+              <NavLink to='petListing' className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }>Pet Listing</NavLink>
             </li>
-            <li>
-              <NavLink to='donationCampaign'>Donation Campaigns</NavLink>
+            <li >
+              <NavLink to='donationCampaign' className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }>Donation Campaigns</NavLink>
             </li>
     </>
     const handleSignOut = () => {
@@ -35,7 +41,7 @@ function Navbar() {
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -55,7 +61,7 @@ function Navbar() {
             {li}
           </ul>
         </div>
-        <h1 className="text-2xl text-emerald-500 font-bold flex">Paws & Tails<sup><img src={logo}/></sup></h1>
+        <h1 className="text-2xl text-emerald-500 font-bold flex font-display">Paws & Tails<sup><img src={logo}/></sup></h1>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -87,7 +93,7 @@ function Navbar() {
                 <Link to='/dashboard/addPet'>Dashboard</Link>
               </li>
               <li className='!mt-2'>
-              <button onClick={handleSignOut} className="btn btn-outline text-blue-500"><FaArrowRightToBracket/>Log Out</button>
+              <button onClick={handleSignOut} className="btn btn-outline !bg-emerald-500"><FaArrowRightToBracket/>Log Out</button>
               </li>
             </ul>
           </div>

@@ -4,9 +4,10 @@ import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { Button, FormHelperText, TextField } from "@mui/material";
 import Select from "react-select";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 const options = [
   { value: "dog", label: "Dog" },
   { value: "cat", label: "Cat" },
@@ -18,12 +19,11 @@ const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 function UpdatePetInfo() {
   const pet = useLoaderData();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [isClearable, setIsClearable] = useState(true);
   const [selectedOption, setSelectedOption] = useState(null);
-  console.log(pet);
-
+const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -61,10 +61,12 @@ function UpdatePetInfo() {
         user_Email: user?.email,
         image: imageUrl,
       };
-      const petsRes = await axiosPublic.put(`/all-pets/petId/${pet._id}`, updatePetInfo);
+      const petsRes = await axiosSecure.put(`/all-pets/petId/${pet._id}`, updatePetInfo);
       console.log(petsRes.data);
       if(petsRes.data.modifiedCount>0){
         toast.success(`${updatePetInfo.name} updated successfully`)
+        navigate('/dashboard/myAddedPets')
+
       }
       console.log(updatePetInfo);
   };
@@ -232,10 +234,10 @@ function UpdatePetInfo() {
             </span>
           )}
         </div>
-        {/* Register Button */}
+        {/* Update button */}
         <div className="my-4">
           <Button variant="contained" type="submit">
-            Add Pet
+            Update Pet
           </Button>
         </div>
       </form>

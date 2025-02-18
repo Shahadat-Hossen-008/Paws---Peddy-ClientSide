@@ -2,6 +2,8 @@ import React from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import AllPetsTable from "../../../Components/AllPetsTable/AllPetsTable";
+import toast from "react-hot-toast";
+import { Button } from "@mui/material";
 
 function AllPets() {
   const axiosSecure = useAxiosSecure();
@@ -12,13 +14,25 @@ function AllPets() {
       return res.data;
     },
   });
-  const handleUpdate = (pet) => {
+  const handleUpdate = async(pet) => {
+    const res = await axiosSecure.patch(`/all-pets/${pet._id}`)
+    refetch()
     console.log("Update Pet:", pet);
-    // Update logic here
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async(id) => {
     console.log("Delete pet", id);
+       try {
+        const response = await axiosSecure.delete(`/all-pets/${id}`);
+        if (response.data.acknowledged) {
+          toast.success('Pet deleted successfully!');
+          refetch();
+        } else {
+          toast.error('Failed to delete pet!');
+        }
+      } catch (error) {
+        toast.error('Error deleting the pet.');
+      }
   };
   const deleteConfirmation = (id) => {
     toast((t) => (
@@ -29,8 +43,8 @@ function AllPets() {
             className="!bg-red-500"
             variant="contained"
             onClick={() => {
+              handleDelete(id, t.id);
               toast.dismiss(t.id);
-              handleDelete(id);
             }}
           >
             Delete
@@ -52,7 +66,7 @@ function AllPets() {
         Total Pets : {pets.length}
       </h1>
       <div>
-        <AllPetsTable pets={pets} handleUpdate={handleUpdate} handleDelete={handleDelete} />
+        <AllPetsTable pets={pets} handleUpdate={handleUpdate} handleDelete={deleteConfirmation} />
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ function AllPetsTable ({pets, handleUpdate, handleDelete}) {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => handleDelete(row.original)}
+                    onClick={() => handleDelete(row.original._id)}
                   >
                     Delete
                   </Button>
