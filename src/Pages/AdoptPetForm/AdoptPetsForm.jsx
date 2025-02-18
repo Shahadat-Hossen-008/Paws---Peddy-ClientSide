@@ -27,7 +27,6 @@ function AdoptPetsForm({ pet, handleClose }) {
     try {
       const { data } = await axiosSecure.post('/adopt-pet', adoptPetInformation);
       toast.success("Adoption request sent successfully");
-      console.log(data);
     } catch (err) {
       // Check if there's a response from the server
       if (err.response) {

@@ -5,14 +5,14 @@ import useAxiosSecure from "./useAxiosSecure"
 
 function useDonationCampaigns () {
   const axiosSecure = useAxiosSecure();
-  const {data: pets=[]} = useQuery({
+  const {data: pets=[], refetch} = useQuery({
     queryKey: ['pet'],
     queryFn: async()=>{
       const res = await axiosSecure.get('/donation-campaign')
       return res.data
     }
   })
-  return [pets]
+  return [pets, refetch]
 }
 
 export default useDonationCampaigns

@@ -1,8 +1,12 @@
-
 import { Card, CardContent, CardMedia, Typography, Button, LinearProgress, Modal, Box } from '@mui/material';
-import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'; // Use useParams to get the id from the route
 import DonationPayment from './DonationPayment';
+import { compareDesc } from 'date-fns';
+import toast from 'react-hot-toast';
+import useDonationCampaigns from '../../Hooks/useDonationCampaigns';
+import RandomDonationCard from '../../Components/RandomDonationCard/RandomDonationCard';
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -16,8 +20,21 @@ const style = {
   overflowY: "auto",
   maxHeight: "90vh",
 };
+
 const DonationDetails = () => {
-const [open, setOpen] = useState(false);
+  const { id } = useParams();
+  const [open, setOpen] = useState(false);
+  const [pets, refetch] = useDonationCampaigns(); 
+  const [currentPet, setCurrentPet] = useState(null); 
+
+  // Find the pet using the id from the params
+  useEffect(() => {
+    if (pets && id) {
+      const foundPet = pets.find(pet => pet._id === id);
+      setCurrentPet(foundPet);
+    }
+  }, [pets, id]);
+
   const {
     _id,
     petName,
@@ -28,15 +45,22 @@ const [open, setOpen] = useState(false);
     shortDescription,
     longDescription,
     campaignCreatedDateTime,
-  } = useLoaderData();
+  } = currentPet || {}; 
 
   const donationPercentage = (donatedAmount / highestDonationAmount) * 100;
-  const handleOpen = ()=>{
+
+  const handleOpen = () => {
+    if (compareDesc(new Date(), lastDateOfDonation) === -1) {
+      return toast.error('Donation Time Over');
+    }
     setOpen(true);
-  }
-  const handleClose =()=>{
+  };
+
+  const handleClose = () => {
     setOpen(false);
-  }
+    refetch(); 
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       <Card className="rounded-lg shadow-lg bg-white">
@@ -47,7 +71,7 @@ const [open, setOpen] = useState(false);
           className="h-96 object-cover rounded-t-lg"
         />
         <CardContent className="!p-6">
-          <Typography variant="h3" className="!text-3xl !font-bold !mb-4 !font-display" >
+          <Typography variant="h3" className="!text-3xl !font-bold !mb-4 !font-display">
             {petName}
           </Typography>
           <Typography variant="body1" className="!mb-4 !text-gray-600 !font-display">
@@ -83,24 +107,26 @@ const [open, setOpen] = useState(false);
             variant="contained"
             color="primary"
             fullWidth
-            onClick={() => handleOpen()}
+            onClick={handleOpen}
             className="!bg-teal-500 !hover:bg-teal-600"
           >
             Donate Now
           </Button>
         </CardContent>
       </Card>
-       {/* // Modal use state for save service  */}
-       <Modal
+
+      {/* Modal for donation payment */}
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <DonationPayment petName={petName} petId = {_id} handleClose={handleClose} />
+          <DonationPayment petName={petName} petId={_id} handleClose={handleClose} />
         </Box>
       </Modal>
+      <RandomDonationCard petId={_id}/>
     </div>
   );
 };

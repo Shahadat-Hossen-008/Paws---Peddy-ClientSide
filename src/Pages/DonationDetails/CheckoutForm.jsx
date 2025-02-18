@@ -4,15 +4,18 @@ import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
+import {  format } from 'date-fns';
+
 
 function CheckoutForm({ petName, petId, handleClose }) {
   const axiosSecure = useAxiosSecure();
+  
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState('');
   const [transactionId, setTransactionId] = useState('');
   const [error, setError] = useState('');
-  const [donationAmount, setDonationAmount] = useState(0); // State to hold the donation amount
-
+  const [donationAmount, setDonationAmount] = useState(0); 
+ 
   const stripe = useStripe();
   const elements = useElements();
 
@@ -30,7 +33,6 @@ function CheckoutForm({ petName, petId, handleClose }) {
           }
         })
         .catch((error) => {
-          console.error('Error creating payment intent:', error);
           setError('Failed to create payment intent.');
         });
     }
@@ -38,7 +40,6 @@ function CheckoutForm({ petName, petId, handleClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!stripe || !elements || !clientSecret) {
       setError('Stripe or elements not loaded or clientSecret missing');
       return;
@@ -71,8 +72,22 @@ function CheckoutForm({ petName, petId, handleClose }) {
       if (intentError) {
         setError(intentError.message);
       } else {
+        console.log("Inside paymentIntent", paymentIntent)
         setTransactionId(paymentIntent.id);
         toast.success(`Thank you for donating $${donationAmount} for ${petName}!`);
+        // now save the info in the database
+        const donationInfo = {
+          petName: petName,
+          petId: petId,
+          transactionId: paymentIntent.id,
+          donatorName: user?.displayName,
+          donatorEmail: user?.email,
+          donationAmount: parseInt(donationAmount),
+          donationDate : format(new Date(), 'P')
+        }
+        const res = await axiosSecure.post('/payments', donationInfo)
+        console.log("payment saved", res.data);
+      
       }
     }
   };
@@ -83,7 +98,7 @@ function CheckoutForm({ petName, petId, handleClose }) {
         <TextField
           name="donationAmount"
           type="number"
-          helperText="Please enter the donation amount"
+          helperText="Please enter the donation amount first"
           id="donation-amount-input"
           fullWidth
           label="Donation Amount"
