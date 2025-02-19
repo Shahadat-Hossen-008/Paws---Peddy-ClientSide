@@ -9,13 +9,13 @@ import toast from 'react-hot-toast';
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 function MyDonationPetUpdate () {
     const pet = useLoaderData()
-    console.log(pet);
+    const navigate = useNavigate()
     
     const axiosSecure = useAxiosSecure()
     const axiosPublic = useAxiosPublic();
@@ -60,8 +60,7 @@ function MyDonationPetUpdate () {
         console.log(petsRes.data);
         if(petsRes.data.acknowledged){
           toast.success(`${addPetInfo.petName} is now updated successfully`);
-  
-          reset();
+          navigate('/dashboard/myDonationCampaign')
         }
         
       }

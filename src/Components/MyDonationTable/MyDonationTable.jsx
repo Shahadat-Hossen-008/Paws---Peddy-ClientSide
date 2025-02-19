@@ -7,16 +7,39 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { Button, LinearProgress } from "@mui/material";
+import { Box, Button, LinearProgress, Modal } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import DonatorsTable from "../DonatorsTable/DonatorsTable";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  overflowY: "auto",
+  maxHeight: "90vh",
+};
 
-function MyDonationTable({
-  donationPets,
-  handleUpdate,
-  handlePause,
-  handleView,
-}) {
+function MyDonationTable({ donationPets, handlePause }) {
+  const [open, setOpen] = useState(false);
+  const [selectedPetId, setSelectedPetId] = useState(null); 
+  const [selectedPetName, setSelectedPetName] = useState(null); 
+
+  const handleView = (id, petName) => {
+    setSelectedPetId(id); 
+    setSelectedPetName(petName);
+    setOpen(true); 
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedPetId(null); 
+  };
   const columns = useMemo(
     () => [
       {
@@ -87,20 +110,17 @@ function MyDonationTable({
         accessorKey: "actions",
         header: "Actions",
         cell: ({ row }) => {
-            const id = row.original._id;
+          const id = row.original._id;
+          const petName = row.original.petName;
           return (
             <div className="flex !space-x-2">
               <Link to={`/dashboard/updateDonationPetInfo/${id}`}>
-                <Button
-                  variant="contained"
-                  // onClick={() => handleUpdate(row.original)}
-                >
-                  Edit Donation
-                </Button>
+                <Button variant="contained">Edit Donation</Button>
               </Link>
               <Button
                 variant="contained"
                 color="secondary"
+                disabled={row.original.pause}
                 onClick={() => handlePause(row.original)}
               >
                 Pause Donation
@@ -108,17 +128,18 @@ function MyDonationTable({
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => handleView(row.original)}
+                onClick={() => handleView(id, petName)}
               >
                 View Donators
               </Button>
+              
             </div>
           );
         },
         enableSorting: false,
       },
     ],
-    [handleUpdate, handlePause, handleView]
+    [handlePause]
   );
 
   const [sorting, setSorting] = useState([]);
@@ -246,6 +267,18 @@ function MyDonationTable({
           ))}
         </select>
       </div>
+      <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                {selectedPetId && (
+            <DonatorsTable petId={selectedPetId} petName={selectedPetName} />
+          )}
+                </Box>
+              </Modal>
     </div>
   );
 }

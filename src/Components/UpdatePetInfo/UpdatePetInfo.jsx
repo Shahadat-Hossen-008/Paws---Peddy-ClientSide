@@ -69,7 +69,7 @@ const navigate = useNavigate()
         navigate('/dashboard/myAddedPets')
 
       }
-      console.log(updatePetInfo);
+      
   };
   return (
     <div>

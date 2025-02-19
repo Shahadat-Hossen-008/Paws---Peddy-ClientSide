@@ -1,14 +1,13 @@
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import MyDonationTable from "../../Components/MyDonationTable/MyDonationTable";
+import React, { useState } from "react";
 
 function MyDonationCampaign() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
-
+  const [open, setOpen] = useState(false);
   // Fetching pets added by the user
   const { data: myAddedDonation = [], refetch } = useQuery({
     queryKey: ["myAddedDonation", user?.email],
@@ -20,19 +19,18 @@ function MyDonationCampaign() {
     },
     enabled: !!user?.email,
   });
-console.log(myAddedDonation);
-const handleUpdate = (petId)=>{
-  console.log("Inside PetId", petId);
+
+  const handlePause = async (pet) => {
+    try {
+      // Wait for the patch request to complete before refetching
+      await axiosSecure.patch(`/donation-campaign/pause/${pet._id}`);
+      // Refetch the data after successfully pausing the donation
+      refetch();
+    } catch (error) {
+      console.error("Error pausing the donation:", error);
+    }
+  };
   
-}
-const handlePause= (pet) =>{
-  console.log("Inside Pet pause", pet);
-  
-}
-const handleView = (pet)=>{
-  console.log("Inside handle view", pet);
-  
-}
   return (
     <div className="w-11/12 mx-auto mt-10">
       <h1 className="font-display font-bold text-2xl my-4">
@@ -41,7 +39,11 @@ const handleView = (pet)=>{
           {myAddedDonation.length} pets
         </span>
       </h1>
-      <MyDonationTable donationPets={myAddedDonation} handleUpdate={handleUpdate} handlePause={handlePause} handleView={handleView} />
+      <MyDonationTable
+        donationPets={myAddedDonation}
+        handlePause={handlePause}
+        open={open}
+      />
     </div>
   );
 }

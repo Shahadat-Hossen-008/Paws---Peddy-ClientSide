@@ -29,7 +29,7 @@ function CreateDonation () {
         'content-type':'multipart/form-data'
       }
     })
-    console.log(res.data);
+    
     
     if(res.data.success){
 
@@ -47,7 +47,7 @@ function CreateDonation () {
         pause: false       
       };
       
-      console.log(addPetInfo);
+      
       const petsRes = await axiosPublic.post('/donation-campaign', addPetInfo);
       console.log(petsRes.data);
       if(petsRes.data.acknowledged){
