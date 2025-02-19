@@ -19,6 +19,7 @@ const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 function UpdatePetInfo() {
   const pet = useLoaderData();
+  const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [isClearable, setIsClearable] = useState(true);

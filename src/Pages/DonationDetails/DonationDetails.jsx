@@ -45,6 +45,7 @@ const DonationDetails = () => {
     shortDescription,
     longDescription,
     campaignCreatedDateTime,
+    pause
   } = currentPet || {}; 
 
   const donationPercentage = (donatedAmount / highestDonationAmount) * 100;
@@ -107,10 +108,11 @@ const DonationDetails = () => {
             variant="contained"
             color="primary"
             fullWidth
+            disabled={pause}
             onClick={handleOpen}
             className="!bg-teal-500 !hover:bg-teal-600"
           >
-            Donate Now
+           Donate Now
           </Button>
         </CardContent>
       </Card>

@@ -18,7 +18,7 @@ function MyAddedPets() {
       const res = await axiosSecure.get(`/all-pets/email/${user?.email}`);
       return res.data;
     },
-    enabled: !!user?.email // Ensuring the query runs only when email is available
+    enabled: !!user?.email 
   });
 
   const handleUpdate = (pet) => {
@@ -80,7 +80,7 @@ function MyAddedPets() {
 
   return (
     <div className="w-11/12 mx-auto mt-10">
-      <h1 className="font-display font-bold text-2xl my-4">My Added Pets</h1>
+      <h1 className="font-display font-bold text-2xl my-4">My Added Pets  <span className='ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full'>{myAddedPets.length} pets</span></h1>
       <PetTable pets={myAddedPets} handleUpdate={handleUpdate} deleteConfirmation={deleteConfirmation} handleAdopt={handleAdopt} />
     </div>
   );

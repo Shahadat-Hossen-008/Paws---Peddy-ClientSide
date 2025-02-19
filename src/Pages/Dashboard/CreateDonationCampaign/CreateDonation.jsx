@@ -29,6 +29,8 @@ function CreateDonation () {
         'content-type':'multipart/form-data'
       }
     })
+    console.log(res.data);
+    
     if(res.data.success){
 
       const addPetInfo = {

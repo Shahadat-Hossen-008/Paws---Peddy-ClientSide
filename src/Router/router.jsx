@@ -19,86 +19,115 @@ import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 import UpdatePetInfo from "../Components/UpdatePetInfo/UpdatePetInfo";
 import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
 import MyDonationCampaign from "../Pages/Dashboard/MyDonationCampaign";
+import MyDonationPetUpdate from "../Components/DonationPetUpdate/MyDonationPetUpdate";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      errorElement:<Error></Error>,
-      children:[
-        {
-            path:'/',
-            element:<Home></Home>
-        },
-        {
-            path:'login',
-            element:<Login></Login>
-        },
-        {
-            path:'register',
-            element:<Register></Register>
-        },
-        {
-            path:'petListing',
-            element:<PetListing></PetListing>
-        },
-        {
-            path:'donationCampaign',
-            element:<DonationCampaign></DonationCampaign>
-        },
-        {
-            path: 'donationCampaign/:id',
-            element:<ProtectedRouter><DonationDetails></DonationDetails></ProtectedRouter>,
-            loader: ({params})=>fetch(`http://localhost:5000/donation-campaign/${params.id}`)
-        },
-        {
-            path:'petListing/:id',
-            element:<ProtectedRouter><PetDetails></PetDetails></ProtectedRouter>,
-            loader:({params})=>fetch(`http://localhost:5000/all-pets/${params.id}`)
-        }
-      ]
-    },
-    {
-        path:'dashboard',
-        element: <ProtectedRouter><Dashboard></Dashboard></ProtectedRouter>,
-        children:[
-            //Admin routes
-            {
-                path:'allUsers',
-                element:<AdminRoute><AllUser></AllUser></AdminRoute>
-            },
-            {
-                path:'allPets',
-                element:<AdminRoute><AllPets></AllPets></AdminRoute>
-            },
-            //user dashboard
-            {
-                path:'myAddedPets',
-                element:<MyAddedPets></MyAddedPets>
-            },
-            {
-                path:'addPet',
-                element:<AddPet></AddPet>
-            },
-            {
-                path:'updatePetInfo/:id',
-                element:<UpdatePetInfo/>,
-                loader: ({params})=>fetch(`http://localhost:5000/all-pets/${params.id}`)
-            },
-            {
-                path: 'adoptionRequest',
-                element:<AdoptionRequest/>
-            },
-           {
-            path:'createDonationCampaign',
-            element: <CreateDonation></CreateDonation>
-           },
-           {
-            path:'myDonationCampaign',
-            element:<MyDonationCampaign/>
-           }
-                
-        ]
-    }
-  ]);
-  export default router;
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    errorElement: <Error></Error>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+      {
+        path: "petListing",
+        element: <PetListing></PetListing>,
+      },
+      {
+        path: "donationCampaign",
+        element: <DonationCampaign></DonationCampaign>,
+      },
+      {
+        path: "donationCampaign/:id",
+        element: (
+          <ProtectedRouter>
+            <DonationDetails></DonationDetails>
+          </ProtectedRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/donation-campaign/${params.id}`),
+      },
+      {
+        path: "petListing/:id",
+        element: (
+          <ProtectedRouter>
+            <PetDetails></PetDetails>
+          </ProtectedRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/all-pets/${params.id}`),
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <ProtectedRouter>
+        <Dashboard></Dashboard>
+      </ProtectedRouter>
+    ),
+    children: [
+      //Admin routes
+      {
+        path: "allUsers",
+        element: (
+          <AdminRoute>
+            <AllUser></AllUser>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "allPets",
+        element: (
+          <AdminRoute>
+            <AllPets></AllPets>
+          </AdminRoute>
+        ),
+      },
+      //user dashboard
+      {
+        path: "myAddedPets",
+        element: <MyAddedPets></MyAddedPets>,
+      },
+      {
+        path: "addPet",
+        element: <AddPet></AddPet>,
+      },
+      {
+        path: "updatePetInfo/:id",
+        element: <UpdatePetInfo />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/all-pets/${params.id}`),
+      },
+      {
+        path: "adoptionRequest",
+        element: <AdoptionRequest />,
+      },
+      {
+        path: "createDonationCampaign",
+        element: <CreateDonation></CreateDonation>,
+      },
+      {
+        path: "myDonationCampaign",
+        element: <MyDonationCampaign />,
+      },
+      {
+        path: "updateDonationPetInfo/:id",
+        element: <MyDonationPetUpdate />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/donation-campaign/${params.id}`),
+      },
+    ],
+  },
+]);
+export default router;
