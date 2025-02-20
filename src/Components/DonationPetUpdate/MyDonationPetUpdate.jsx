@@ -10,10 +10,12 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
 const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 function MyDonationPetUpdate () {
+  const [isAdmin]= useAdmin();
     const pet = useLoaderData()
     const navigate = useNavigate()
     
@@ -37,7 +39,7 @@ function MyDonationPetUpdate () {
       }
     })
     
-    console.log(res.data);
+    
     
     if(res.data.success){
 
@@ -55,13 +57,22 @@ function MyDonationPetUpdate () {
           pause: false       
         };
         
-        console.log(addPetInfo);
         const petsRes = await axiosSecure.put(`/donation-campaign/petId/${pet._id}`, addPetInfo);
         console.log(petsRes.data);
-        if(petsRes.data.acknowledged){
+        if (petsRes.data.acknowledged) {
           toast.success(`${addPetInfo.petName} is now updated successfully`);
-          navigate('/dashboard/myDonationCampaign')
-        }
+      
+          // More explicit role-based navigation
+          if (isAdmin) {
+              // Admin-specific behavior
+              navigate("/dashboard/allDonation");
+            } else {
+              // Non-admin behavior
+              navigate(`/dashboard/myDonationCampaign`);
+          }
+      } else {
+          toast.error('Failed to update pet information. Please try again.');
+      }
         
       }
     }

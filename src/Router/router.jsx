@@ -18,9 +18,10 @@ import AdminRoute from "./AdminRoute";
 import AllPets from "../Pages/Dashboard/AllPets/AllPets";
 import UpdatePetInfo from "../Components/UpdatePetInfo/UpdatePetInfo";
 import AdoptionRequest from "../Pages/Dashboard/AdoptionRequest/AdoptionRequest";
-import MyDonationCampaign from "../Pages/Dashboard/MyDonationCampaign";
 import MyDonationPetUpdate from "../Components/DonationPetUpdate/MyDonationPetUpdate";
 import MyDonations from "../Pages/Dashboard/MyDonations/MyDonations";
+import MyDonationCampaign from "../Pages/Dashboard/MyDonationCampaign/MyDonationCampaign";
+import AllDonationCampaign from "../Pages/Dashboard/AllDonationCampiagn/AllDonationCampaign";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,12 @@ const router = createBrowserRouter([
             <AllPets></AllPets>
           </AdminRoute>
         ),
+      },
+      {
+        path:'allDonation',
+        element:<AdminRoute>
+          <AllDonationCampaign/>
+        </AdminRoute>
       },
       //user dashboard
       {
