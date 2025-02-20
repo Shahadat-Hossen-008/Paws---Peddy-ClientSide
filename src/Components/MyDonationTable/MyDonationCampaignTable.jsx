@@ -25,7 +25,7 @@ const style = {
   maxHeight: "90vh",
 };
 
-function MyDonationTable({ donationPets, handlePause }) {
+function MyDonationTableCampaign({ donationPets, handlePause }) {
   const [open, setOpen] = useState(false);
   const [selectedPetId, setSelectedPetId] = useState(null); 
   const [selectedPetName, setSelectedPetName] = useState(null); 
@@ -283,4 +283,4 @@ function MyDonationTable({ donationPets, handlePause }) {
   );
 }
 
-export default MyDonationTable;
+export default MyDonationTableCampaign;

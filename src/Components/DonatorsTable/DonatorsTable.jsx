@@ -20,7 +20,7 @@ function DonatorsTable({ petId , petName}) {
   
   return (
     <TableContainer component={Paper}>
-     <h2 className="font-display font-bold text-2xl my-4">{petName}</h2>
+     <h2 className="font-display font-semibold text-2xl my-4 mx-5">List of Donors for {petName}</h2>
       <Table sx={{ maxWidth: 1250 }} aria-label="simple table" className="!font-display">
         <TableHead>
           <TableRow>

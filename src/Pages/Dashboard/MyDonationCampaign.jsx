@@ -1,8 +1,8 @@
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import MyDonationTable from "../../Components/MyDonationTable/MyDonationTable";
 import React, { useState } from "react";
+import MyDonationTableCampaign from "../../Components/MyDonationTable/MyDonationCampaignTable";
 
 function MyDonationCampaign() {
   const { user } = useAuth();
@@ -39,7 +39,7 @@ function MyDonationCampaign() {
           {myAddedDonation.length} pets
         </span>
       </h1>
-      <MyDonationTable
+      <MyDonationTableCampaign
         donationPets={myAddedDonation}
         handlePause={handlePause}
         open={open}

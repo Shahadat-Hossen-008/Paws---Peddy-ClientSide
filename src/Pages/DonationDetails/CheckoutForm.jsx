@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import {  format } from 'date-fns';
 
 
-function CheckoutForm({ petName, petId, handleClose }) {
+function CheckoutForm({ petName, petId,petImage }) {
   const axiosSecure = useAxiosSecure();
   
   const { user } = useAuth();
@@ -79,6 +79,7 @@ function CheckoutForm({ petName, petId, handleClose }) {
         const donationInfo = {
           petName: petName,
           petId: petId,
+          petImage:petImage ,
           transactionId: paymentIntent.id,
           donatorName: user?.displayName,
           donatorEmail: user?.email,

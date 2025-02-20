@@ -125,7 +125,7 @@ const DonationDetails = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <DonationPayment petName={petName} petId={_id} handleClose={handleClose} />
+          <DonationPayment petName={petName} petId={_id} handleClose={handleClose} petImage={petImage} />
         </Box>
       </Modal>
       <RandomDonationCard petId={_id}/>
