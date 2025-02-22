@@ -16,12 +16,14 @@ import { AuthContext } from "../../Context/AuthProvider";
 import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 
 
 function Login() {
   const {setUser, signIn } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state || "/";
@@ -43,9 +45,9 @@ function Login() {
           name: user?.displayName,
           photoURL: user?.photoURL
         }
-        axiosPublic.post('/users', userInfo)
+        axiosSecure.post('/users', userInfo)
         .then(res=>{
-          console.log(res.data)
+          // console.log(res.data)
         })
         toast.success("Login successfully")
         navigate(from ,{replace: true})

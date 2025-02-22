@@ -17,11 +17,9 @@ function AllPets() {
   const handleUpdate = async(pet) => {
     const res = await axiosSecure.patch(`/all-pets/${pet._id}`)
     refetch()
-    console.log("Update Pet:", pet);
   };
 
   const handleDelete = async(id) => {
-    console.log("Delete pet", id);
        try {
         const response = await axiosSecure.delete(`/all-pets/${id}`);
         if (response.data.acknowledged) {

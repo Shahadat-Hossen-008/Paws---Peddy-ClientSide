@@ -1,29 +1,43 @@
+import React, { useEffect, useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAuth from '../../Hooks/useAuth';
 import toast from 'react-hot-toast';
-import {  format } from 'date-fns';
+import { format } from 'date-fns';
 
-
-function CheckoutForm({ petName, petId,petImage }) {
-  const axiosSecure = useAxiosSecure();
+function CheckoutForm({ currentPet }) {
+  const {
+    _id,
+    petName,
+    petImage,
+    highestDonationAmount,
+    donatedAmount,
+    lastDateOfDonation,
+    shortDescription,
+    longDescription,
+    campaignCreatedDateTime,
+    pause
+  } = currentPet || {};
   
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState('');
   const [transactionId, setTransactionId] = useState('');
   const [error, setError] = useState('');
   const [donationAmount, setDonationAmount] = useState(0); 
- 
+  const [isInvalidAmount, setIsInvalidAmount] = useState(false); 
+
   const stripe = useStripe();
   const elements = useElements();
 
+  const maxAllowedDonation = highestDonationAmount - donatedAmount;
+
   // useEffect to fetch clientSecret on render and when donationAmount changes
   useEffect(() => {
-    if (donationAmount > 0) {
-      // Create payment intent when donation amount is set and greater than 0
-      axiosSecure.post('/create-payment-intent', { amount: donationAmount }) 
+    if (donationAmount > 0 && donationAmount <= maxAllowedDonation) {
+      // Create payment intent when donation amount is set and valid
+      axiosSecure.post('/create-payment-intent', { amount: donationAmount })
         .then((response) => {
           const clientSecret = response.data.clientSecret;
           if (clientSecret) {
@@ -36,7 +50,7 @@ function CheckoutForm({ petName, petId,petImage }) {
           setError('Failed to create payment intent.');
         });
     }
-  }, [axiosSecure, donationAmount]);
+  }, [axiosSecure, donationAmount, maxAllowedDonation]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,28 +82,39 @@ function CheckoutForm({ petName, petId,petImage }) {
       const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethod.id,
       });
-
+     
       if (intentError) {
         setError(intentError.message);
       } else {
-        console.log("Inside paymentIntent", paymentIntent)
         setTransactionId(paymentIntent.id);
         toast.success(`Thank you for donating $${donationAmount} for ${petName}!`);
         // now save the info in the database
         const donationInfo = {
           petName: petName,
-          petId: petId,
-          petImage:petImage ,
+          petId: _id,
+          petImage: petImage,
           transactionId: paymentIntent.id,
           donatorName: user?.displayName,
           donatorEmail: user?.email,
           donationAmount: parseInt(donationAmount),
-          donationDate : format(new Date(), 'P')
-        }
-        const res = await axiosSecure.post('/payments', donationInfo)
-        console.log("payment saved", res.data);
-      
+          donationDate: format(new Date(), 'P'),
+        };
+        const res = await axiosSecure.post('/payments', donationInfo);
       }
+    }
+  };
+
+  const handleDonationChange = (e) => {
+    const amount = parseInt(e.target.value);
+    setDonationAmount(amount);
+
+    // Validate the entered donation amount
+    if (amount > maxAllowedDonation) {
+      setIsInvalidAmount(true);
+      setError(`Donation amount cannot exceed the remaining amount of $${maxAllowedDonation}`);
+    } else {
+      setIsInvalidAmount(false);
+      setError(''); 
     }
   };
 
@@ -99,11 +124,12 @@ function CheckoutForm({ petName, petId,petImage }) {
         <TextField
           name="donationAmount"
           type="number"
-          helperText="Please enter the donation amount first"
+          helperText={`Please enter the donation amount. Maximum allowed: $${maxAllowedDonation}`}
           id="donation-amount-input"
           fullWidth
           label="Donation Amount"
-          onChange={(e) => setDonationAmount(e.target.value)} 
+          onChange={handleDonationChange}
+          error={isInvalidAmount}
         />
       </div>
       <CardElement
@@ -123,16 +149,16 @@ function CheckoutForm({ petName, petId,petImage }) {
         }}
       />
       <Button
-        variant='outlined'
+        variant="outlined"
         fullWidth
         type="submit"
-        disabled={!stripe || !clientSecret}  
-        className='!my-2'
+        disabled={!stripe || !clientSecret || isInvalidAmount }  
+        className="!my-2"
       >
         Donate Now
       </Button>
-      <p className='text-red-500'>{error}</p>
-      {transactionId && <p className='my-5'>Your Transaction ID: <span className='text-green-500'> {transactionId}</span></p>}
+      <p className="text-red-500">{error}</p>
+      {transactionId && <p className="my-5">Your Transaction ID: <span className="text-green-500"> {transactionId}</span></p>}
     </form>
   );
 }

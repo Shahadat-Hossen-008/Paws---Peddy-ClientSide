@@ -49,7 +49,6 @@ function CreateDonation () {
       
       
       const petsRes = await axiosPublic.post('/donation-campaign', addPetInfo);
-      console.log(petsRes.data);
       if(petsRes.data.acknowledged){
         toast.success(`Thank you! ${addPetInfo.petName} is now available for donations. Your generosity will make a difference!`);
 

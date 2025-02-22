@@ -63,7 +63,6 @@ const navigate = useNavigate()
         image: imageUrl,
       };
       const petsRes = await axiosSecure.put(`/all-pets/petId/${pet._id}`, updatePetInfo);
-      console.log(petsRes.data);
       if(petsRes.data.modifiedCount>0){
         toast.success(`${updatePetInfo.name} updated successfully`)
         navigate('/dashboard/myAddedPets')

@@ -15,10 +15,8 @@ function AllUser () {
 })
 
 const handleUpdate = (user) => {
-    console.log('Update Pet:', user);
     const res = axiosSecure.patch(`/users/admin/${user._id}`)
     .then(res=>{
-        console.log(res.data);
         refetch()
         if(res.data.modifiedCount>0){
             toast.success(`${user?.name} is an Admin now`)

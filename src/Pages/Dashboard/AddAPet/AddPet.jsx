@@ -50,7 +50,6 @@ function AddPet() {
         image: res.data.data.display_url         
       };
       const petsRes = await axiosPublic.post('/all-pets', addPetInfo);
-      console.log(petsRes.data);
       if(petsRes.data.acknowledged){
         toast.success(`${addPetInfo.name} added successfully`)
         reset();

@@ -66,12 +66,12 @@ function PetListing() {
           ? Array(10)
               .fill(0)
               .map((_, idx) => (
-                <div key={idx} className="col-span-full">
+                <div key={idx} className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                   <Skeleton
                     count={20}
                     baseColor="#38b2ac"
                     highlightColor="#81e6d9"
-                    height={30}
+                    height={300}
                     duration={1.2}
                     style={{ marginBottom: "20px", borderRadius: "8px" }}
                   />

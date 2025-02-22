@@ -58,7 +58,6 @@ function MyDonationPetUpdate () {
         };
         
         const petsRes = await axiosSecure.put(`/donation-campaign/petId/${pet._id}`, addPetInfo);
-        console.log(petsRes.data);
         if (petsRes.data.acknowledged) {
           toast.success(`${addPetInfo.petName} is now updated successfully`);
       
@@ -179,6 +178,14 @@ function MyDonationPetUpdate () {
             </span>
           )}
      </div>
+     <div className="w-full my-5">
+          <p>Current Pet Image:</p>
+          <img
+            src={pet.petImage}
+            alt="Current Pet"
+            className="w-40 h-40 object-cover"
+          />
+        </div>
      <div>
      {/* file input */}
      <input type="file" className="file-input"

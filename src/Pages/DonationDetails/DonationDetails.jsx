@@ -108,7 +108,7 @@ const DonationDetails = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={pause}
+            disabled={pause || donatedAmount===highestDonationAmount}
             onClick={handleOpen}
             className="!bg-teal-500 !hover:bg-teal-600"
           >
@@ -125,7 +125,7 @@ const DonationDetails = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <DonationPayment petName={petName} petId={_id} handleClose={handleClose} petImage={petImage} />
+          <DonationPayment currentPet={currentPet} />
         </Box>
       </Modal>
       <RandomDonationCard petId={_id}/>
