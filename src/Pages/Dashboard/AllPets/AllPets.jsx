@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import AllPetsTable from "../../../Components/AllPetsTable/AllPetsTable";
 import toast from "react-hot-toast";
 import { Button } from "@mui/material";
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 
 function AllPets() {
   const axiosSecure = useAxiosSecure();
@@ -60,6 +61,7 @@ function AllPets() {
   };
   return (
     <div>
+    <DynamicTitle title={`All Pets | Paws & Tails`} />
       <h1 className="text-2xl font-display my-10 mx-10">
         Total Pets : {pets.length}
       </h1>

@@ -5,6 +5,7 @@ import useAuth from '../../../Hooks/useAuth'
 import AdoptionRequestTable from '../../../Components/AdoptionRequestPetTable/AdoptionRequestTable';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import DynamicTitle from '../../../Dynamic Title/DynamicTitle';
 
 function AdoptionRequest () {
     const {user} = useAuth();
@@ -51,6 +52,7 @@ const handleReject = async(petId, status, petName)=>{
 }
   return (
     <div className='w-11/12 mx-auto'>
+    <DynamicTitle title={`Adoption Request | Paws & Tails`} />
      <h1 className="font-display font-bold text-2xl my-6">Adoption Request <span className='ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full'>{adoptionRequest.length} Requests</span></h1>
      <div>
       <AdoptionRequestTable adoptionRequestPets={adoptionRequest} handleAccept={handleAccept} handleReject={handleReject} />

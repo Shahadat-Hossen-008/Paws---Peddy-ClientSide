@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
+import DynamicTitle from '../../../Dynamic Title/DynamicTitle';
 const image_hosting_key = import.meta.env.VITE_Image_Hosting_Key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 function CreateDonation () {
@@ -60,6 +61,7 @@ function CreateDonation () {
     };
     return (
       <div>
+      <DynamicTitle title={`Create Donation Campaign | Paws & Tails`} />
         <h2 className="text-2xl font-bold font-display my-5 mx-10">
           Create Donation Campaign
         </h2>

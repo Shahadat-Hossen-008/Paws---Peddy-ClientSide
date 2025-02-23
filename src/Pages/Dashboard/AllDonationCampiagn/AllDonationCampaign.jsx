@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import AllDonationCampaignTable from "../../../Components/AllDonationCampaignTable/AllDonationCampaignTable";
 import { Button } from "@mui/material";
 import toast from "react-hot-toast";
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 
 function AllDonationCampaign() {
   const axiosSecure = useAxiosSecure();
@@ -61,6 +62,7 @@ function AllDonationCampaign() {
   };
   return (
     <div>
+    <DynamicTitle title={`All Donation Campaign | Paws & Tails`} />
       <h1 className="text-2xl font-display my-10 mx-10">
         Total Donation Campaign: <span className='ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full'>{pets.length}</span>
       </h1>

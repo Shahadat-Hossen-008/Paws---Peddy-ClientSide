@@ -7,8 +7,10 @@ import { AuthContext } from "../../Context/AuthProvider";
 import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 
 function Register() {
+
   const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic()
   const [seePassword, setSeePassword] = useState(true);
@@ -55,6 +57,7 @@ function Register() {
 
   return (
     <div className="hero min-h-screen  py-20 flex items-center justify-center">
+    <DynamicTitle title={`Register | Paws & Tails`} />
       <div className="card w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Register</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full text-lg">

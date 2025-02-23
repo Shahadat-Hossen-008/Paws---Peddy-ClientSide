@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 
 function MyAddedPets() {
   const { user } = useAuth();
@@ -80,6 +81,7 @@ function MyAddedPets() {
 
   return (
     <div className="w-11/12 mx-auto mt-10">
+    <DynamicTitle title={`My Added Pets | Paws & Tails`} />
       <h1 className="font-display font-bold text-2xl my-4">My Added Pets  <span className='ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full'>{myAddedPets.length} pets</span></h1>
       <PetTable pets={myAddedPets} handleUpdate={handleUpdate} deleteConfirmation={deleteConfirmation} handleAdopt={handleAdopt} />
     </div>

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import useAxiosSecure from "../../../Hooks/useAxiosSecure"
 import AllUserTable from "../../../Components/AllUserTable/AllUserTable"
 import toast from "react-hot-toast"
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle"
 
 
 function AllUser () {
@@ -26,6 +27,7 @@ const handleUpdate = (user) => {
   };
   return (
     <div><h1 className="text-2xl font-display my-10 mx-10">Total User:  {users.length}</h1>
+    <DynamicTitle title={`All User | Paws & Tails`} />
     <div>
         <AllUserTable users={users} handleUpdate={handleUpdate} />
     </div></div>

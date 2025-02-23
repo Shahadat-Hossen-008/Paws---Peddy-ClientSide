@@ -17,6 +17,7 @@ import GoogleButton from "../../Components/SocialLoginButton/GoogleButton";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 
 
 
@@ -63,6 +64,7 @@ function Login() {
   }
   return (
     <div className="!font-display">
+    <DynamicTitle title={`Login | Paws & Tails`} />
       <Container component="main" maxWidth="xs" className="shadow-lg p-20 mt-10">
         <Box
           sx={{

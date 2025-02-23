@@ -6,6 +6,7 @@ import { compareDesc } from 'date-fns';
 import toast from 'react-hot-toast';
 import useDonationCampaigns from '../../Hooks/useDonationCampaigns';
 import RandomDonationCard from '../../Components/RandomDonationCard/RandomDonationCard';
+import DynamicTitle from '../../Dynamic Title/DynamicTitle';
 
 const style = {
   position: "absolute",
@@ -64,6 +65,7 @@ const DonationDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
+    <DynamicTitle title={`Support ${petName}'s Journey - Donation Campaign`} />
       <Card className="rounded-lg shadow-lg bg-white">
         <CardMedia
           component="img"

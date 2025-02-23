@@ -13,6 +13,7 @@ import {
 import { FaSearch } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 function PetListing() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -21,6 +22,7 @@ function PetListing() {
 
   return (
     <div className="w-11/12 mx-auto">
+    <DynamicTitle title={'Pet Listing'} />
       <div className="md:flex justify-evenly items-center">
         <FormControl sx={{ m: 3, minWidth: 300 }}>
           <InputLabel id="demo-simple-select-helper-label">Category</InputLabel>

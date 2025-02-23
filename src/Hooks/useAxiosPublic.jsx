@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://paws-tails-server-side.vercel.app'
 })
 function useAxiosPublic () {
   return axiosPublic

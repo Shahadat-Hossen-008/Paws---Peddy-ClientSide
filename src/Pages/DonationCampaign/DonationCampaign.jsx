@@ -3,11 +3,13 @@ import useDonationCampaigns from "../../Hooks/useDonationCampaigns";
 import PetCard from "../../Components/DonationPetCard/PetCard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 function DonationCampaign() {
   const [pets] = useDonationCampaigns();
 
   return (
     <div className="w-11/12 mx-auto mt-10 font-display">
+    <DynamicTitle title={'Donation Campaign || Paws & Tails'} />
       <h1 class="text-4xl font-bold text-emerald-500 mb-4">
         Help Us Make a Difference, One Paw at a Time!
       </h1>

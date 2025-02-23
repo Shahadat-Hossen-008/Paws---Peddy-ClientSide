@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import MyDonationTable from "../../../Components/MyDonationStatusTable/MyDonationTable";
 import toast from "react-hot-toast";
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 
 function MyDonations() {
   const { user } = useAuth();
@@ -39,6 +40,7 @@ function MyDonations() {
 
   return (
     <div className="w-11/12 mx-auto mt-10">
+    <DynamicTitle title={`My Donations | Paws & Tails`} />
       <h1 className="font-display font-bold text-2xl my-4">
         My list of donation{" "}
         <span className="ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full">

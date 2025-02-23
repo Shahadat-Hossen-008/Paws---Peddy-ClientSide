@@ -13,6 +13,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import AdoptPetsForm from "../AdoptPetForm/AdoptPetsForm";
 import React from "react";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 const style = {
   position: "absolute",
   top: "50%",
@@ -41,6 +42,7 @@ function PetDetails() {
   };
   return (
     <div className="min-h-screen bg-base-100 p-6 flex justify-center items-center ">
+    <DynamicTitle title={`${pet.name} Learn More About This Pet`} />
       <Card className="shadow-lg rounded-2xl w-full max-w-4xl overflow-hidden bg-white">
         <Grid container>
           {/* Pet Image Section */}

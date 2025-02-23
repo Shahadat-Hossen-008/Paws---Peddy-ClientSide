@@ -2,6 +2,7 @@ import useAuth from "../../Hooks/useAuth";
 import { Button, TextField } from "@mui/material";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import DynamicTitle from "../../Dynamic Title/DynamicTitle";
 function AdoptPetsForm({ pet, handleClose }) {
   
   const { user } = useAuth();
@@ -53,6 +54,7 @@ function AdoptPetsForm({ pet, handleClose }) {
 
   return (
     <div>
+    <DynamicTitle title={`${pet.name}'s Journey to Finding a Home | Pet Adoption Campaign`} />
       <h2 className="text-2xl font-display text-center my-5">
         Get ready to adopt: <span className="font-bold">{pet.name}</span>
       </h2>

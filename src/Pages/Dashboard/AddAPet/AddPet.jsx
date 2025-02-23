@@ -6,6 +6,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { format } from "date-fns";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 const options = [
   { value: "dog", label: "Dog" },
   { value: "cat", label: "Cat" },
@@ -60,6 +61,7 @@ function AddPet() {
   };
   return (
     <div>
+    <DynamicTitle title={`Add Pet | Paws & Tails`} />
       <h2 className="text-2xl font-bold font-display my-5 mx-10">
         Add Your Pet
       </h2>
