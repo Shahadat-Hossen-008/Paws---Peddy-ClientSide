@@ -57,7 +57,7 @@ const router = createBrowserRouter([
           </ProtectedRouter>
         ),
         loader: ({ params }) =>
-          fetch(`https://paws-tails-server-side.vercel.app/donation-campaign/${params.id}`),
+          fetch(`http://localhost:5000/donation-campaign/${params.id}`),
       },
       {
         path: "petListing/:id",
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
           </ProtectedRouter>
         ),
         loader: ({ params }) =>
-          fetch(`https://paws-tails-server-side.vercel.app/all-pets/${params.id}`),
+          fetch(`http://localhost:5000/all-pets/${params.id}`),
       },
     ],
   },
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
         path: "updatePetInfo/:id",
         element: <UpdatePetInfo />,
         loader: ({ params }) =>
-          fetch(`https://paws-tails-server-side.vercel.app/all-pets/${params.id}`),
+          fetch(`http://localhost:5000/all-pets/${params.id}`),
       },
       {
         path: "adoptionRequest",
@@ -133,7 +133,7 @@ const router = createBrowserRouter([
         path: "updateDonationPetInfo/:id",
         element: <MyDonationPetUpdate />,
         loader: ({ params }) =>
-          fetch(`https://paws-tails-server-side.vercel.app/donation-campaign/${params.id}`),
+          fetch(`http://localhost:5000/donation-campaign/${params.id}`),
       },
       {
         path:'myDonation',

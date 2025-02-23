@@ -45,7 +45,7 @@ function Login() {
           name: user?.displayName,
           photoURL: user?.photoURL
         }
-        axiosSecure.post('/users', userInfo)
+        axiosPublic.post('/users', userInfo)
         .then(res=>{
           // console.log(res.data)
         })

@@ -13,10 +13,7 @@ function useAdmin () {
           const res = await axiosSecure.get(`/users/admin/${user?.email}`)
           
           return res.data?.admin
-        },
-        enabled: !!user?.email,
-        retry: false,
-        staleTime: 5 * 60 * 1000,
+        }
         
     })
   return [isAdmin, isAdminLoading]

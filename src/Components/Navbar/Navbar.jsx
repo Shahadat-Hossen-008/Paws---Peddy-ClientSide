@@ -7,7 +7,7 @@ import logo from "../../assets/logo.webp";
 import toast from "react-hot-toast";
 import useAdmin from "../../Hooks/useAdmin";
 function Navbar() {
-  const [isAdmin, isAdminLoading] = useAdmin();
+  // const [isAdmin, isAdminLoading] = useAdmin();
   const { user, signOutUser } = useContext(AuthContext);
   const li = (
     <>
@@ -111,9 +111,7 @@ function Navbar() {
             >
               <li>
                 <Link
-                  to={`${
-                    isAdmin ? "/dashboard/allUsers" : "/dashboard/addPet"
-                  }`}
+                  to={"/dashboard/addPet"}
                 >
                   Dashboard
                 </Link>
