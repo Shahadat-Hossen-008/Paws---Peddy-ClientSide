@@ -3,7 +3,7 @@ import logo from "../../assets/logo.webp";
 
 function Footer() {
   return (
-    <footer className="bg-black text-neutral-content p-10">
+    <footer className="bg-black text-neutral-content p-10" id='footer'>
       <div className="w-11/12 mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Logo Section */}
         <aside className="flex items-center space-x-2 mb-6 md:mb-0">

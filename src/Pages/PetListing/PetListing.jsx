@@ -3,8 +3,6 @@ import PetsCard from "../../Components/PetsCard/PetsCard";
 import UseFetch from "../../Hooks/UseFetch";
 import {
   FormControl,
-  IconButton,
-  InputBase,
   InputLabel,
   MenuItem,
   Select,
@@ -14,10 +12,11 @@ import { FaSearch } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import DynamicTitle from "../../Dynamic Title/DynamicTitle";
+import Loading from "../../Loading/Loading";
 function PetListing() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("");
-  const [pets] = UseFetch(searchQuery, category);
+  const [pets, status, isFetchingNextPage] = UseFetch(searchQuery, category);
   const availablePets = pets?.filter((pet) => pet.adopted === false) || [];
 
   return (
@@ -79,10 +78,11 @@ function PetListing() {
                   />
                 </div>
               ))
-          : availablePets.map((pet) => (
+          : availablePets.map((pet, index) => (
               <PetsCard key={pet._id} pet={pet}></PetsCard>
             ))}
       </div>
+      {  status ==='success' && isFetchingNextPage  && <Loading/>}
     </div>
   );
 }

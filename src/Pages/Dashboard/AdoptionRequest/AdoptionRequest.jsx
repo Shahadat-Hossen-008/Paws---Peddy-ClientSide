@@ -14,7 +14,7 @@ function AdoptionRequest () {
     const {data: adoptionRequest=[], refetch} = useQuery({
     queryKey:['adoptRequest', user?.email],
     queryFn: async ()=>{
-        const res = await axiosPublic.get(`/adopt-pet/${user?.email}`)
+        const res = await axiosSecure.get(`/adopt-pet/${user?.email}`)
         return res.data
     }
 })

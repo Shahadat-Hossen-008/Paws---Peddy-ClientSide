@@ -16,7 +16,7 @@ function MyAddedPets() {
   const { data: myAddedPets = [], refetch } = useQuery({
     queryKey: ['myAddedPets', user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/all-pets/email/${user?.email}`);
+      const res = await axiosSecure.get(`/all-pets-email/${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email 
