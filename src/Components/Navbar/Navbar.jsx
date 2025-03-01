@@ -7,8 +7,8 @@ import logo from "../../assets/logo.webp";
 import toast from "react-hot-toast";
 import useAdmin from "../../Hooks/useAdmin";
 function Navbar() {
-  // const [isAdmin, isAdminLoading] = useAdmin();
-  const { user, signOutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
+  const { user, signOutUser, loading } = useContext(AuthContext);
   const li = (
     <>
       <li>
@@ -109,13 +109,24 @@ function Navbar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <Link
-                  to={"/dashboard/addPet"}
+             
+                {
+                  user && isAdmin &&  <li> <Link
+                  to={"/dashboard/allUsers"}
                 >
                   Dashboard
                 </Link>
-              </li>
+                </li>
+                }
+                {
+                  user && !isAdmin &&  <li> <Link
+                  to={"/dashboard/myAddedPets"}
+                >
+                  Dashboard
+                </Link>
+                </li>
+                }
+              
               <li className="!mt-2">
                 <button
                   onClick={handleSignOut}

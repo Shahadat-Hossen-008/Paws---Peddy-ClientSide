@@ -34,7 +34,7 @@ function Dashboard() {
           </label>
           <h2 className="text-xl font-bold font-display">Dashboard</h2>
           <div className="flex items-center space-x-4">
-            <div title={user?.displayName} className="w-12 rounded-full">
+            <div title={user?.displayName} className="w-10 rounded-full">
               <img
                 referrerPolicy="no-referrer"
                 alt="User Profile Photo"

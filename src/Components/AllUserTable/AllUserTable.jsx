@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useReactTable, getCoreRowModel, getSortedRowModel, flexRender, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import { Button, Typography } from '@mui/material';
 
-function AllUserTable({ users, handleUpdate, handleBan }) {
+function AllUserTable({ users, handleUpdate, handleBan, handleUnBan }) {
   const columns = useMemo(
     () => [
       {
@@ -37,15 +37,20 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
       {
         accessorKey: "role",
         header: "Role",
-        cell: (info) => (<Typography
-          variant="body2"
-          style={{
-            color: info.getValue() ?  "green" : "black" ,
-            fontWeight: "bold",
-          }}
-        >
-          {info.getValue() ? "Admin" : "User"}
-        </Typography>),
+        cell: ({ row }) => {
+          const role = row.original.role; 
+          return (
+            <Typography
+              variant="body2"
+              style={{
+                color: role === "Admin" ? "green" : "black" && role==='Ban' && 'red',
+                fontWeight: "bold",
+              }}
+            >
+              {role ? role : "User"}
+            </Typography>
+          );
+        },
         enableSorting: true,
       },
       {
@@ -59,7 +64,7 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={role === "Admin"}
+                disabled={role === "Admin" || role ==='Ban'}
                 className='disabled:cursor-not-allowed' 
                 onClick={() => handleUpdate(row.original)}
               >
@@ -68,9 +73,17 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
               <Button
                 variant="contained"
                 color="secondary"
+                disabled={role ==='Ban'}
                 onClick={() => handleBan(row.original)}
               >
                 Ban
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => handleUnBan(row.original)}
+              >
+                UnBan
               </Button>
             </div>
           );
@@ -78,7 +91,7 @@ function AllUserTable({ users, handleUpdate, handleBan }) {
         enableSorting: false,
       },
     ],
-    [handleUpdate, handleBan]
+    [handleUpdate, handleBan, handleUnBan]
   );
   const [sorting, setSorting] = useState([]);
   const [pagination, setPagination] = useState({

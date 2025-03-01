@@ -99,7 +99,7 @@ function CreateDonation () {
                 {...register("donation", {
                   required: "Donation is required",
                   max: {
-                    value: 50000,
+                    value: 5000000,
                     message: "Donation must be valid",
                   },
                   min: {

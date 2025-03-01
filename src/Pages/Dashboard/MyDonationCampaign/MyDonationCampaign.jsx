@@ -28,7 +28,7 @@ function MyDonationCampaign() {
       // Refetch the data after successfully pausing the donation
       refetch();
     } catch (error) {
-      console.error("Error pausing the donation:", error);
+      // console.error("Error pausing the donation:", error);
     }
   };
   

@@ -3,10 +3,12 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure"
 import AllUserTable from "../../../Components/AllUserTable/AllUserTable"
 import toast from "react-hot-toast"
 import DynamicTitle from "../../../Dynamic Title/DynamicTitle"
+import useAuth from "../../../Hooks/useAuth"
 
 
 function AllUser () {
     const axiosSecure = useAxiosSecure()
+    const {user} = useAuth();
     const {data: users=[], refetch} = useQuery({
     queryKey:['users'],
     queryFn: async ()=>{
@@ -25,11 +27,40 @@ const handleUpdate = (user) => {
         
     })
   };
+  const handleBan = (user) => {
+    // const res = axiosSecure.patch(`/users/ban/${user._id}`)
+    // .then(res=>{
+    //     refetch()
+    //     if(res.data.modifiedCount>0){
+    //         toast.success(`${user?.name} is Ban now`)
+    //     }
+        
+    // })
+    // console.log(user);
+    
+  };
+  const handleUnBan = (userId) => {
+    // const res = axiosSecure.patch(`/users/admin/${user._id}`)
+    // .then(res=>{
+    //     refetch()
+    //     if(res.data.modifiedCount>0){
+    //         toast.success(`${user?.name} is an Admin now`)
+    //     }
+        
+    // })
+    // console.log(userId);
+    
+  };
   return (
-    <div><h1 className="text-2xl font-display my-10 mx-10">Total User:  {users.length}</h1>
+    <div>
+    <DynamicTitle title={`All User | Paws & Tails`} />
+    <div className="flex justify-between items-center">
+    <h1 className="text-2xl font-display my-10 mx-10">Hi, Welcome {user?.displayName} </h1>
+    <h1 className="text-2xl font-display my-10 mx-10">Total User:  {users.length}</h1>
+    </div>
     <DynamicTitle title={`All User | Paws & Tails`} />
     <div>
-        <AllUserTable users={users} handleUpdate={handleUpdate} />
+        <AllUserTable users={users} handleUpdate={handleUpdate} handleBan={handleBan} handleUnBan={handleUnBan}/>
     </div></div>
   )
 }
