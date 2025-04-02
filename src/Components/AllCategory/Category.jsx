@@ -5,12 +5,12 @@ function Category() {
   const allCategory = ['Dog', 'Cat', 'Rabbit', 'Fish'];
 
   return (
-    <div className="my-10">
+    <div className="md:my-10 my-6">
       {/* Title */}
-      <h1 className="md:text-4xl font-display font-bold text-center my-4 text-red-500">
+      <h1 className=" text-2xl md:text-4xl font-display font-bold text-center md:my-4 my-2 text-red-500">
         Pets Category
       </h1>
-      <p className="text-center text-gray-600 md:text-lg mb-6">
+      <p className="text-center md:text-lg mb-6 p-3">
         Explore a variety of pets to find your perfect companion. Whether you
         <br/>
         love furry friends, aquatic life, or playful rabbits, we've got a pet category just for you!
@@ -21,8 +21,7 @@ function Category() {
           <Button
             key={index}
             variant="outlined"
-            color="primary"
-            className="!px-6 !py-3 !text-lg !capitalize"
+            className="!px-4 !py-3 md:!text-lg capitalize !border-[var(--primary-color)] !text-[var(--primary-color)]"
           >
             {category}
           </Button>

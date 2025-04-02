@@ -10,17 +10,17 @@ function DonationCampaign() {
   return (
     <div className="w-11/12 mx-auto mt-10 font-display">
     <DynamicTitle title={'Donation Campaign || Paws & Tails'} />
-      <h1 class="text-4xl font-bold text-emerald-500 mb-4">
+      <h1 className="text-4xl font-bold text-emerald-500 mb-4">
         Help Us Make a Difference, One Paw at a Time!
       </h1>
-      <p class="text-lg text-cyan-200-200 mb-6">
+      <p className="text-lg text-cyan-200-200 mb-6">
         Your generosity can save countless animals in need. With your donation,
         we're able to provide food, shelter, and medical care to homeless pets.
         Join us in creating a brighter future for these loving animals and help
         them find their forever homes.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {pets.length === 0
           ? Array(10)
               .fill(0)

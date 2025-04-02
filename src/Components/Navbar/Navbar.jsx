@@ -1,14 +1,39 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
-import { FaArrowRightToBracket } from "react-icons/fa6";
+import { FaArrowRightToBracket, FaMoon, FaSun } from "react-icons/fa6";
 import logo from "../../assets/logo.webp";
 import toast from "react-hot-toast";
 import useAdmin from "../../Hooks/useAdmin";
+import "../Shared.css"
 function Navbar() {
   const [isAdmin] = useAdmin();
-  const { user, signOutUser, loading } = useContext(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+ const toggleTheme = () => {
+    const newTheme = isDarkTheme ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    setIsDarkTheme(!isDarkTheme);
+  };
+
+  // On mount, check system preferences and localStorage to set the theme
+  useEffect(() => {
+    const localStorageTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (localStorageTheme) {
+      setIsDarkTheme(localStorageTheme === "dark");
+      document.documentElement.setAttribute("data-theme", localStorageTheme);
+    } else if (systemPrefersDark) {
+      setIsDarkTheme(true);
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      setIsDarkTheme(false);
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  }, []);
   const li = (
     <>
       <li>
@@ -43,17 +68,20 @@ function Navbar() {
       </li>
     </>
   );
+
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
         toast.success("Sign out successfully");
       })
       .catch((err) => {
-        toast.error("Error Occur");
+        toast.error("Error Occurred");
       });
   };
+
   return (
-    <div className="navbar bg-base-100 shadow-sm w-11/12 mx-auto sticky mt-6 z-20">
+    <div className="bg-base-100 sticky z-50 top-0">
+      <div className="navbar shadow-sm md:w-11/12 md:mx-auto py-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -74,15 +102,15 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {li}
           </ul>
         </div>
-        <h1 className="text-2xl text-emerald-500 font-bold flex font-display">
+        <h1 className="md:text-2xl text-emerald-500 font-bold flex font-display">
           Paws & Tails
           <sup>
-            <img src={logo} />
+            <img src={logo} alt="Logo" />
           </sup>
         </h1>
       </div>
@@ -90,6 +118,12 @@ function Navbar() {
         <ul className="menu menu-horizontal px-1">{li}</ul>
       </div>
       <div className="navbar-end">
+      <Button
+          onClick={toggleTheme}
+          aria-label={`Switch to ${isDarkTheme ? "light" : "dark"} theme`}
+        >
+          {isDarkTheme ?  <FaMoon />:<FaSun />}
+        </Button>
         {user ? (
           <div className="dropdown dropdown-end z-50 text-lg">
             <div
@@ -105,32 +139,28 @@ function Navbar() {
                 />
               </div>
             </div>
+
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-             
-                {
-                  user && isAdmin &&  <li> <Link
-                  to={"/dashboard/allUsers"}
-                >
-                  Dashboard
-                </Link>
+              {user && isAdmin && (
+                <li>
+                  {" "}
+                  <Link to={"/dashboard/allUsers"}>Dashboard</Link>
                 </li>
-                }
-                {
-                  user && !isAdmin &&  <li> <Link
-                  to={"/dashboard/myAddedPets"}
-                >
-                  Dashboard
-                </Link>
+              )}
+              {user && !isAdmin && (
+                <li>
+                  {" "}
+                  <Link to={"/dashboard/myAddedPets"}>Dashboard</Link>
                 </li>
-                }
-              
+              )}
+
               <li className="!mt-2">
                 <button
                   onClick={handleSignOut}
-                  className="btn btn-outline !bg-emerald-500"
+                  className="btn btn-outline  custom-btn-primary"
                 >
                   <FaArrowRightToBracket />
                   Log Out
@@ -139,11 +169,12 @@ function Navbar() {
             </ul>
           </div>
         ) : (
-          <Button variant="contained" className="!bg-teal-500">
+          <Button variant="contained" className=" custom-btn-primary">
             <Link to="/login">Login</Link>
           </Button>
         )}
       </div>
+    </div>
     </div>
   );
 }

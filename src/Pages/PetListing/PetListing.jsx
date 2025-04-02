@@ -52,10 +52,10 @@ function PetListing() {
           <FaSearch className="absolute right-3 top-5" />
         </div>
       </div>
-      <h1 class="text-4xl font-bold text-emerald-500 mb-4">
+      <h1 className="text-4xl font-bold text-emerald-500 mb-4">
         Find Your Forever Friend: Adopt a Pet Today!
       </h1>
-      <p class="text-lg text-cyan-200-200 mb-6">
+      <p className="text-lg text-cyan-200-200 mb-6">
         Give a loving pet the chance to find a forever home. By adopting, you're
         not only saving a life but gaining a loyal companion who will bring
         endless joy to your world. Open your heart and home to a furry friend in

@@ -36,7 +36,7 @@ function AllDonationCampaignTable ({donationPets, handleDelete, handlePause}) {
             enableSorting: true,
             cell: (info) => (
               <span className="font-semibold text-green-600">
-                ${info.getValue().toLocaleString()}
+                ${info.getValue()}
               </span>
             ),
           },

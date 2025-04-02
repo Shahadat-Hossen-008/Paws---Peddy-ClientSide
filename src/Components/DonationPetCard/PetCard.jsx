@@ -7,7 +7,7 @@ const PetCard = ({ pet }) => {
   const donationPercentage = (donatedAmount / highestDonationAmount) * 100;
 
   return (
-    <Card className="!rounded-lg !shadow-md !p-4 !max-w-xs !bg-white">
+    <Card className="!rounded-lg !shadow-md !p-4 !w-full !bg-white">
       <CardMedia
         component="img"
         image={petImage}
