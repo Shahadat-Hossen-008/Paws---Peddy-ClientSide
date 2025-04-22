@@ -1,6 +1,6 @@
 <h2>Welcome to Paws & Tails </h2>
 <p>Paws & Tails is a dynamic pet information platform where users can adopt pets, read detailed information about them, start donation campaigns for homeless or injured animals, and add their own pets to the collection. Users can view their added pets, donation campaigns, and track donations. This platform utilizes Firebase for authentication, MongoDB for the database, and various modern npm packages to enhance the user experience. 
-<br\>
+</br>
 Email: medix@js.com
 password: Newyear2025@
 </p>
