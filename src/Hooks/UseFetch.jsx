@@ -27,7 +27,7 @@ function UseFetch (searchQuery, category) {
     };
     const {
       data,
-      hasNextPage, fetchNextPage, status, isFetchingNextPage
+      hasNextPage, fetchNextPage, status, isFetchingNextPage, isPending
     } = useInfiniteQuery({
       queryKey:["pets", searchQuery, category],
       queryFn: fetchPets,
@@ -53,7 +53,7 @@ function UseFetch (searchQuery, category) {
    const pets = data?.pages?.flatMap(page => page) || [];
    
 
-  return [pets, status, isFetchingNextPage]
+  return [pets, status, isFetchingNextPage, isPending]
 }
 
 export default UseFetch

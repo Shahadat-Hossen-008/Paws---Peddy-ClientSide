@@ -103,7 +103,7 @@ const PetTable = ({ pets, handleUpdate,deleteConfirmation, handleAdopt }) => {
 
   return (
     <div>
-      <table className="min-w-full bg-white shadow-md rounded-lg font-display">
+      <table className="min-w-full bg-white text-black shadow-md rounded-lg font-display">
       <thead>
         {table.getHeaderGroups().map(headerGroup => (
           <tr key={headerGroup.id} className="bg-gray-200">

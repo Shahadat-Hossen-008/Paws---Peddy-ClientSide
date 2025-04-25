@@ -132,7 +132,7 @@ function AdoptionRequestTable({
 
   return (
     <div>
-      <table className="min-w-full bg-white shadow-md rounded-lg !font-display">
+      <table className="min-w-full bg-white shadow-md rounded-lg !font-display overflow-x-auto text-black">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className="bg-gray-200">
@@ -171,7 +171,7 @@ function AdoptionRequestTable({
         </tbody>
       </table>
       <div className="h-2 mt-2" />
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap gap-2 items-center justify-between">
         <Button
           variant="outlined"
           className="border rounded p-1"

@@ -54,9 +54,9 @@ const handleUpdate = (user) => {
   return (
     <div>
     <DynamicTitle title={`All User | Paws & Tails`} />
-    <div className="flex justify-between items-center">
-    <h1 className="text-2xl font-display my-10 mx-10">Hi, Welcome {user?.displayName} </h1>
-    <h1 className="text-2xl font-display my-10 mx-10">Total User:  {users.length}</h1>
+    <div className="flex flex-col md:flex-row justify-between md:items-center">
+    <h1 className="text-2xl font-display m-5 md:m-10">Hi, Welcome {user?.displayName} </h1>
+    <h1 className="text-2xl font-display m-5 md:m-10">Total User:  {users.length}</h1>
     </div>
     <DynamicTitle title={`All User | Paws & Tails`} />
     <div>

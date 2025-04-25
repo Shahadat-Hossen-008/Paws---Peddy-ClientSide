@@ -17,7 +17,7 @@ function Banner() {
           Happy Time!
         </h1>
         {/* Subtext */}
-        <p className=" py-3 md:py-6 text-lg text-white leading-relaxed text-left">
+        <p className=" py-3 md:py-6 text-lg leading-relaxed text-left banner-text">
           A pet friend is more than just a companion; they are loyal, affectionate, 
           <br/>
           and a constant source of joy. Make every moment with your pet memorable.
@@ -25,7 +25,6 @@ function Banner() {
 
         {/* Button */}
         <Link to={"petListing"}><Button variant="contained" className="custom-btn-primary">Adopt Now</Button></Link>
-        
       </div>
     </div>
   );

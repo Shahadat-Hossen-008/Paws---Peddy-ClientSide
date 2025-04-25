@@ -60,7 +60,7 @@ function AddPet() {
       
   };
   return (
-    <div>
+    <div className="bg-white">
     <DynamicTitle title={`Add Pet | Paws & Tails`} />
       <h2 className="text-2xl font-bold font-display my-5 mx-10">
         Add Your Pet

@@ -60,7 +60,7 @@ function CreateDonation () {
        
     };
     return (
-      <div>
+      <div className='bg-white'>
       <DynamicTitle title={`Create Donation Campaign | Paws & Tails`} />
         <h2 className="text-2xl font-bold font-display my-5 mx-10">
           Create Donation Campaign

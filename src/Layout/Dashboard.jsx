@@ -51,8 +51,8 @@ function Dashboard() {
       {/* Sidebar (Drawer) */}
       <div className="drawer-side">
         <label htmlFor="dashboard-drawer" className="drawer-overlay lg:hidden"></label>
-        <div className="bg-teal-300 w-64 lg:translate-x-0 transform transition-transform duration-300 ease-in-out lg:sticky p-4 lg:min-h-screen lg:block">
-          <h1 className="text-2xl text-emerald-900 mt-5 font-bold flex font-display">
+        <div className="bg-teal-500 w-64 lg:translate-x-0 transform transition-transform duration-300 ease-in-out lg:sticky p-4 min-h-screen lg:block">
+          <h1 className="text-2xl text-amber-100 mt-5 font-bold flex font-display">
             Paws & Tails
             <sup>
               <img src={logo} alt="logo" />

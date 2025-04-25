@@ -80,8 +80,8 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-base-100 sticky z-50 top-0">
-      <div className="navbar shadow-sm md:w-11/12 md:mx-auto py-4">
+    <div className="bg-base-100 sticky z-50 top-0 w-full shadow-sm">
+      <div className="navbar md:w-11/12 md:mx-auto py-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -107,7 +107,7 @@ function Navbar() {
             {li}
           </ul>
         </div>
-        <h1 className="md:text-2xl text-emerald-500 font-bold flex font-display">
+        <h1 className="md:text-2xl text-emerald-400 font-bold flex font-display">
           Paws & Tails
           <sup>
             <img src={logo} alt="Logo" />

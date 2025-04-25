@@ -7,9 +7,9 @@ function Category() {
   return (
     <div className="md:my-10 my-6">
       {/* Title */}
-      <h1 className=" text-2xl md:text-4xl font-display font-bold text-center md:my-4 my-2 text-red-500">
+      <h2 className=" text-2xl md:text-4xl font-display font-bold text-center md:my-4 my-2">
         Pets Category
-      </h1>
+      </h2>
       <p className="text-center md:text-lg mb-6 p-3">
         Explore a variety of pets to find your perfect companion. Whether you
         <br/>
