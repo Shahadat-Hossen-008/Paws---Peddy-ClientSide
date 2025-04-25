@@ -7,7 +7,68 @@ import logo from "../assets/logo.webp";
 function Dashboard() {
   const { user } = useAuth();
   const [isAdmin] = useAdmin();
-
+  const list = <>
+    <li>
+                  <NavLink
+                    to="/dashboard/addPet"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    Add a Pet
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/myAddedPets"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    My Added Pets
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/adoptionRequest"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    Adoption Requests
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/createDonationCampaign"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    Create Donation Campaign
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/myDonationCampaign"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    My Donation Campaigns
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/myDonation"
+                    className={({ isActive }) =>
+                      isActive ? "bg-emerald-500 text-white" : undefined
+                    }
+                  >
+                    My Donations
+                  </NavLink>
+                </li>
+  </>
   return (
     <div className="drawer drawer-mobile lg:drawer-open">
       {/* Drawer for mobile */}
@@ -91,69 +152,12 @@ function Dashboard() {
                     All Donations
                   </NavLink>
                 </li>
+                <div className="divider"></div>
+                    {list}
               </>
             ) : (
               <>
-                <li>
-                  <NavLink
-                    to="/dashboard/addPet"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    Add a Pet
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/myAddedPets"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    My Added Pets
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/adoptionRequest"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    Adoption Requests
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/createDonationCampaign"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    Create Donation Campaign
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/myDonationCampaign"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    My Donation Campaigns
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard/myDonation"
-                    className={({ isActive }) =>
-                      isActive ? "bg-emerald-500 text-white" : undefined
-                    }
-                  >
-                    My Donations
-                  </NavLink>
-                </li>
+                {list}
               </>
             )}
           </ul>

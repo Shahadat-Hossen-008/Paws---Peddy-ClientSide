@@ -8,7 +8,7 @@ import DynamicTitle from "../../../Dynamic Title/DynamicTitle";
 
 function AllDonationCampaign() {
   const axiosSecure = useAxiosSecure();
-  const [pets, refetch] = useDonationCampaigns();
+  const [pets, refetch, isPending] = useDonationCampaigns();
   
   const handlePause = async (pet) => {
     const pause = pet.pause;
@@ -66,7 +66,7 @@ function AllDonationCampaign() {
       <h1 className="text-2xl font-display my-10 mx-10">
         Total Donation Campaign: <span className='ml-1 bg-blue-200 p-2 font-medium text-xl rounded-full'>{pets.length}</span>
       </h1>
-      <AllDonationCampaignTable donationPets={pets} handleDelete={deleteConfirmation} handlePause={handlePause} />
+      <AllDonationCampaignTable donationPets={pets} handleDelete={deleteConfirmation} handlePause={handlePause}/>
     </div>
   );
 }

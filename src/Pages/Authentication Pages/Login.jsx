@@ -58,9 +58,27 @@ function Login() {
     .catch(error=>{
         toast.error(error.message);
     })
-    
-    
-    
+  }
+  const adminLogin= ()=>{
+    const email = "medix@js.com";
+    const password = "Newyear2025@";
+    signIn(email, password)
+    .then(result =>{
+        const user = result.user;
+        setUser(user);
+        const userInfo = {
+          email :user?.email,
+          name: user?.displayName,
+          photoURL: user?.photoURL
+        }
+        toast.success("Login successfully")
+        navigate(from ,{replace: true})
+        
+        
+    })
+    .catch(error=>{
+        toast.error(error.message);
+    })
   }
   return (
     <div className="!font-display">
@@ -74,7 +92,7 @@ function Login() {
           }}
         >
           {/* Title */}
-          <Typography component="h1" variant="h5" className="!font-semibold !font-display">
+          <Typography component="h1" variant="h5" className="!font-semibold !font-display" >
             Log In
           </Typography>
           <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
@@ -129,6 +147,8 @@ function Login() {
             </p>
           </Box>
         </Box>
+        <div className="divider">OR</div>
+        <Button variant="outlined" fullWidth onClick={adminLogin}>Admin Login</Button>
        <GoogleButton></GoogleButton>
       </Container>
     </div>
